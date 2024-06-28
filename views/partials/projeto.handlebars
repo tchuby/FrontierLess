@@ -1,0 +1,60 @@
+<li class="list-group-item p-0">
+    <form action="" method="post" class="card mt-3" onclick="editarProjeto()">
+        <div class="card-header bg-dark text-light pb-0 d-flex justify-content-between align-items-center">
+            <h3>
+                <input class="form-control-plaintext text-light fw-bold rounded" type="text" placeholder="Destino"
+                    name="destino" Disabled>
+            </h3>
+            <div class="d-flex justify-content-center align-items-center">
+                <button type="button"
+                    class="btn btn-outline-light p-1 d-flex justify-content-center align-items-center border-0"
+                    onclick="deletaProjeto(event)" Disabled>
+                    <i class="bi bi-trash h4 mb-0"></i>
+                </button>
+                <button type="button"
+                    class="btn btn-outline-light p-1 d-flex justify-content-center align-items-center border-0"
+                    onclick="salvaProjeto(event)" Disabled>
+                    <i class="bi bi-floppy h4 mb-0"></i>
+                </button>
+            </div>
+
+        </div>
+        <div class="card-body container bg-light">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-2 text-center">
+                        <label for="" class="form-label">Status</label>
+                        <select class="form-select" name="status" Disabled>
+                            <option>Selecione</option>
+                            <option value="1">Andamento</option>
+                            <option value="2">Hiato</option>
+                            <option value="3">Abandonado</option>
+                            <option value="4">Concluido</option>
+                        </select>
+                    </div>
+                    <div class="mb-2 text-center">
+                        <label for="" class="form-label">Tipo</label>
+                        <select class="form-select" name="tipoIntercambio" Disabled>
+                            <option>Selecione</option>
+                            <option value="1">Trabalho</option>
+                            <option value="2">Estudo</option>
+                            <option value="3">Trabalho/Estudo</option>
+                            <option value="4">Turismo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-2 text-center">
+                        <label for="" class="form-label">Valor Necessário</label>
+                        <input type="text" class="form-control" placeholder="R$00.000,00" name="valorNecessario"
+                            Disabled>
+                    </div>
+                    <div class="mb-2 text-center">
+                        <label for="" class="form-label">Valor Guardado</label>
+                        <input type="text" class="form-control" placeholder="R$00.000,00" name="valorGuardado" Disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</li>

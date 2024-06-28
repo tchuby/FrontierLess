@@ -1,0 +1,32 @@
+<main class="container pt-3 d-flex flex-column min-vh-100" style="background-color: white;">
+    <div class="row ">
+        <h2 class="text-center mb-3">Projeots</h2>
+
+        <section class="col-md-5 border-top p-3 d-flex flex-column max-height-sm">
+            <div class="form-check form-switch d-flex justify-content-between align-items-center">
+                <input class="form-check-input" type="checkbox" role="switch" onclick="statusInpt(event)" checked>
+                <button type="button" class="btn btn-dark" onclick="criaProjeto()">+ Criar projeto</button>
+            </div>
+
+            <ol class="list-group list-group-flush" id="listaProjetos">
+                <!--OS PROJETOS SERÃO ADICIONADOS AQUI-->
+                {{>projeto}}
+            </ol>
+        </section>
+
+        <section class="col-md-7 border-top p-3">
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-dark" onclick="criaPasso()">+ Cria Passo</button>
+            </div>
+
+            <ol class="accordion accordion-flush list-group list-group-flush" id="listaPassos"
+                id="accordionFlushExample">
+                <!--OS PASSOS SERÃO ADICIONADOS AQUI-->
+                {{>passo}}
+
+            </ol>
+        </section>
+    </div>
+</main>
+<script id="projeto-template" type="text/x-handlebars-template">{{>projeto}}</script>
+<script id="passo-template" type="text/x-handlebars-template">{{>passo}}</script>

@@ -15,9 +15,10 @@ app.use(express.static('public'))
 
 //rotas
 app.get('/', (req,res)=>{
-    
     res.render('home')
-
+})
+app.get('/perfil', (req,res)=>{
+    res.render('perfil')
 })
 
 app.listen(port, () => {
