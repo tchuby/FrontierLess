@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize')
 
 const db = require('../db/connection')
 
-const User = {
+const User = db.define('User', {
     name: {
         type: DataTypes.STRING,
         required: false
@@ -15,8 +15,10 @@ const User = {
         type: DataTypes.STRING,
         required: false
     },
-    bithday: {
+    birthday: {
         type: DataTypes.DATE,
         allowNull: true
     }
-}
+})
+
+module.exports  = User

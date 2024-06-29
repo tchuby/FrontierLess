@@ -1,6 +1,10 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const conn = require('./db/connection') //conexão com banco
+const User = require('./models/User')
+const Project = require('./models/Project')
+const Review = require('./models/Review')
+const BudgetItem = require('./models/BudgetItem')
 
 // -- CONFIGURAÇÕES --
 
@@ -48,7 +52,12 @@ app.get('/', (req,res)=>{
     res.render('home')
 })
 
-// rodar aplicação
-app.listen(port, () => {
-    console.log('Aplicação rodando')
-})
+//realizar conexão permanente
+conn.sync({force: true})
+    //.sync({ force: true })
+    .then(() => {
+    // rodar aplicação
+    app.listen(port, () => {
+        console.log('Aplicação rodando')
+    })})
+    .catch((err) => console.log(err))
