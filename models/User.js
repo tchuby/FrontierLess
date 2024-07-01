@@ -5,20 +5,21 @@ const db = require('../db/connection')
 const User = db.define('User', {
     name: {
         type: DataTypes.STRING,
-        required: false
+        required: true
     },
-    passWord: {
+    password: {
         type: DataTypes.STRING,
         required: true
     },
     email: {
         type: DataTypes.STRING,
-        required: false
+        required: true
     },
-    birthday: {
+    birthdate: {
         type: DataTypes.DATE,
         allowNull: true
     }
 })
+
 
 module.exports  = User
