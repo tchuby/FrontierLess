@@ -26,4 +26,6 @@ const Project = db.define('Project', {
 
 Project.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' })
 
+User.hasMany(Project)
+
 module.exports = Project

@@ -1,10 +1,22 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const conn = require('./db/connection') //conexão com banco
+const session = require('express-session')
+const FileStore = require('session-file-store')(session)
+const flash = require('express-flash') 
+
+//Models
 const User = require('./models/User')
 const Project = require('./models/Project')
 const Review = require('./models/Review')
 const BudgetItem = require('./models/BudgetItem')
+
+//import routes
+const homeRoutes = require('./routes/homeRoutes')
+const authRoutes = require('./routes/authRoutes')
+
+//import controller
+const HomeController = require('./controllers/HomeController')
 
 // -- CONFIGURAÇÕES --
 
@@ -20,7 +32,7 @@ const partialsHbs = exphbs.create({
 app.engine('handlebars', partialsHbs.engine)
 app.set('view engine', 'handlebars')
 
-//css e js
+//public path: css e js
 app.use(express.static('public'))
 
 //ler o body de requisições post
@@ -31,29 +43,52 @@ app.use(
 )
 app.use(express.json())
 
+//session middleware, onde a aplicação grava as sessões
+app.use(
+    session({
+        name: "session",
+        secret: "_5h56GqS<;O1",
+        resave: false,
+        saveUninitialized: false,
+        store: new FileStore({
+            logFn: function() {},
+            path: require('path').join(require('os').tmpdir(), 'sessions'),
+        }),
+        cookie: {
+            secure: false,
+            maxAge: 360000,
+            expires: new Date(Date.now() + 360000),
+            httpOnly: true
+        }
+    })
+)
+
+// flash messages, mensagens de status do sistema
+app.use(flash())
+
+//Set session to res
+app.use((req, res, next) => {
+    
+    //usuario logado 
+    if(req.session.userId) {
+        //atribuir os dados do usuario da requisição para a resposta
+        res.locals.session = req.session
+    }
+
+    //caso não logado passar direto
+    next()
+
+})
+
 // -- ROTAS --
-app.get('/perfil', (req,res)=>{
-    res.render('perfil')
-})
+app.use('/home', homeRoutes)
+app.use('/', authRoutes)
 
-app.get('/user/create', (req, res) => {
-    //res.render('criarPerfil')
-    res.send('em construção...')
-})
-
-app.post('/user/create', (req, res) => {
-    const user = req.body
-    res.send(`Usuário nome = ${user.name}.`)
-    res.send('em construção...')
-})
-
-//home, manter esse endpoint sempre abaixo de todos os demais
-app.get('/', (req,res)=>{
-    res.render('home')
-})
+app.get('/', HomeController.showHome)
 
 //realizar conexão permanente
-conn.sync({force: true})
+conn
+    .sync()
     //.sync({ force: true })
     .then(() => {
     // rodar aplicação

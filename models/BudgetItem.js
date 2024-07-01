@@ -17,4 +17,6 @@ const BudgetItem = db.define('BudgetItem', {
 
 BudgetItem.belongsTo(Project, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' })
 
+Project.hasMany(BudgetItem)
+
 module.exports = BudgetItem
