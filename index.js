@@ -9,11 +9,13 @@ const flash = require('express-flash')
 const User = require('./models/User')
 const Project = require('./models/Project')
 const Review = require('./models/Review')
-const BudgetItem = require('./models/BudgetItem')
+const ProjectItem = require('./models/ProjectItem')
 
 //import routes
 const homeRoutes = require('./routes/homeRoutes')
 const authRoutes = require('./routes/authRoutes')
+const projectRoutes = require('./routes/projectRoutes')
+const profileRoutes = require('./routes/profileRoutes')
 
 //import controller
 const HomeController = require('./controllers/HomeController')
@@ -81,6 +83,8 @@ app.use((req, res, next) => {
 })
 
 // -- ROTAS --
+app.use('/profile', profileRoutes)
+app.use('/project', projectRoutes)
 app.use('/home', homeRoutes)
 app.use('/', authRoutes)
 

@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize')
 const db = require('../db/connection')
 const Project = require('./Project')
 
-const BudgetItem = db.define('BudgetItem', {
+const ProjectItem = db.define('ProjectItem', {
     name: {
         type: DataTypes.STRING,
         required: true
@@ -15,8 +15,8 @@ const BudgetItem = db.define('BudgetItem', {
     }
 })
 
-BudgetItem.belongsTo(Project, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' })
+ProjectItem.belongsTo(Project, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' })
 
-Project.hasMany(BudgetItem)
+Project.hasMany(ProjectItem)
 
-module.exports = BudgetItem
+module.exports = ProjectItem
