@@ -72,7 +72,7 @@ app.use(flash())
 app.use((req, res, next) => {
     
     //usuario logado 
-    if(req.session.userId) {
+    if(req.session.userid) {
         //atribuir os dados do usuario da requisição para a resposta
         res.locals.session = req.session
     }
