@@ -14,10 +14,6 @@ function criaPasso() {
     cont++;
 }
 
-function editarProjeto() {
-
-}
-
 function statusInpt(oEvent) {
     let listaProjetos = document.getElementById('listaProjetos');
     let inputs = listaProjetos.querySelectorAll('input');
@@ -48,23 +44,5 @@ function statusInpt(oEvent) {
 
 
 }
-
-function salvaProjeto(oEvent){
-    console.log('ProjetoSalvo')
-}
-function deletaProjeto(oEvent){
-    console.log('ProjetoDeletado')
-
-}
-
-function salvaPasso(oEvent){
-    console.log('PassoSalvo')
-
-}
-function deletaPasso(oEvent){
-    console.log('PassoDeltado')
-
-}
-
 
 
