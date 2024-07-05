@@ -16,6 +16,7 @@ const homeRoutes = require('./routes/homeRoutes')
 const authRoutes = require('./routes/authRoutes')
 const projectRoutes = require('./routes/projectRoutes')
 const profileRoutes = require('./routes/profileRoutes')
+const searchProjectsRoutes = require('./routes/searchProjectsRoute')
 
 //import controller
 const HomeController = require('./controllers/HomeController')
@@ -83,6 +84,7 @@ app.use((req, res, next) => {
 })
 
 // -- ROTAS --
+app.use('/searchProjects', searchProjectsRoutes)
 app.use('/profile', profileRoutes)
 app.use('/project', projectRoutes)
 app.use('/home', homeRoutes)
@@ -92,8 +94,8 @@ app.get('/', HomeController.showHome)
 
 //realizar conexão permanente
 conn
-    //.sync()
-    .sync({ force: true })
+    .sync()
+    //.sync({ force: true })
     .then(() => {
     // rodar aplicação
     app.listen(port, () => {
