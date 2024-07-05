@@ -5,13 +5,23 @@ module.exports = class ProfileController {
 
     static async showProfile(req, res) {
 
-        const userProfile = await User.findOne({where: {id: req.session.userid}})
+        try {
+            const userProfile = await User.findOne({ where: { id: req.session.userid } });
 
-        const userProjects = Project.findAll({where: {UserId: req.session.userid}})
-        console.log(userProjects)
+            if (!userProfile) {
+                // Tratar o caso onde o usuário não é encontrado
+                return res.status(404).send('User not found');
+            }
 
-        res.render(`profile/profile`, {userProfile, userProjects})
+            const userProjects = await Project.findAll({ where: { UserId: req.session.userid }, raw: true });
+            console.log(userProjects);
 
+            res.render('profile/profile', { userProfile, userProjects });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Server Error');
+        }
+        
     }
 
     static async createProject(req, res) {
