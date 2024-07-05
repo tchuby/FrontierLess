@@ -5,11 +5,7 @@ const User = require('./User')
 const Project = db.define('Project', {
     destination: {
         type: DataTypes.STRING,
-        required: false
-    },
-    publicationDate: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
+        required: true
     },
     status: {
         type: DataTypes.ENUM,
