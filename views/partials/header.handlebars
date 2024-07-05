@@ -8,35 +8,35 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                {{#if session.userid}}
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-                    {{#if session.userid}}
-                        
-                        <li>
-                            <a class="nav-link" href="/profile">Perfil</a>
-                        </li>
-
-                        <li>
-                            <a class="nav-link" href="/project">Projetos</a>
-                        </li>
-                    
-                        <li>
-                            <a class="nav-link" href="/logout">Sair</a>
-                        </li>
-
-                    {{else}}
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Entrar</a>
-                        </li>
-                    
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Cadastrar</a>
-                        </li>
-
-                    {{/if}}
-                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/profile">Perfil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Buscar</a>
+                    </li>
                 </ul>
+                <ul class="navbar-nav d-flex ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Sair</a>
+                    </li>
+                </ul>
+                {{else}}
+                <ul class="navbar-nav d-flex ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Entrar</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/register">Cadastrar</a>
+                    </li>
+                </ul>
+                {{/if}}
+
             </div>
         </div>
     </nav>
