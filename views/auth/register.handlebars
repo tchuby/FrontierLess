@@ -1,28 +1,20 @@
 <div class="container">
     <div class="auth-container">
 
-        <h2>Cadstre-se</h2>
+        <h2>Cadastre-se</h2>
+        <form class="form-control p-3 shadow" action="/register" method="post">
+            <div class="mb-3">
+                <input type="text" class="form-control p-3 mb-2" id="name" name="name" placeholder="Nome">
+                <input type="email" class="form-control p-3 mb-2" id="email" placeholder="E-mail" name="email">
+                <input type="password" class="form-control p-3 mb-2" id="password" placeholder="Senha" name="password">
+                <input type="password" class="form-control p-3 mb-2" id="confirmpassword"
+                    placeholder="Confirme sua senha" name="confirmpassword">
 
-        <form class="form-control" action="/register" method="post">
-        
-            <label for="name" class="">Nome:</label>
-            <input type="text" name="name" placeholder="seu nome">
-
-            <label for="email" class="">Email:</label>
-            <input type="email" name="email" placeholder="seu email">
-
-            <label for="password" class="">Senha:</label>
-            <input type="password" name="password" placeholder="sua senha">
-
-            <label for="confirmpassword" class="">Confirme sua senha:</label>
-            <input type="password" name="confirmpassword" placeholder="sua senha">
-
-            <label for="birthdate" class="">Data de nascimento:</label>
-            <input type="date" name="birthdate" placeholder="dd/MM/yyyy">
-
-            <input type="submit" value="Cadastrar">
+                <label for="birthdate">Data de nascimento</label>
+                <input type="date" class="form-control p-3 mb-2" id="birthdate" name="birthdate">
+            </div>
+            <button type="submit" class="btn btn-dark fs-3">Entrar</button>
             <p>Já possui uma conta? <a href="/login">Clique aqui!</a> </p>
-    
-         </form>
+        </form>
     </div>
 </div>
