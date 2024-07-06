@@ -1,20 +1,17 @@
 <div class="container">
     <div class="auth-container">
-
-        <h2>Entrar</h2>
-
-        <form class="form-control" action="/login" method="post">
-        
-            <label for="email" class="">Email:</label>
-            <input type="email" name="email" placeholder="seu email">
-
-            <label for="password" class="">Senha:</label>
-            <input type="password" name="password" placeholder="sua senha">
-
-            <input type="submit" value="Entrar">
-            
-            <p>Não tem uma conta? <a href="/register">Clique aqui!</a></p>
-    
-         </form>
+        <div>
+            <h2>Entrar no FrontierLess</h2>
+        </div>
+        <form class="form-control p-3 shadow" action="/login" method="post">
+            <div class="mb-3">
+                <input type="email" class="form-control p-3" id="email" placeholder="E-mail" name="email">
+                <input type="password" class="form-control p-3 mt-3" id="password" placeholder="Senha" name="password">
+            </div>
+            <button type="submit" class="btn btn-dark fs-3">Entrar</button>
+            <a class="link" href="">Esqueceu a senha?</a>
+            <hr>
+            <a class="text-decoration-none border rounded text-center p-2 bg-success" href="/register">Criar nova conta</a>
+        </form>
     </div>
 </div>
