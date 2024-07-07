@@ -1,3 +1,47 @@
 <div class="container">
-    <h1>Projeto do fulano</h1>
+    <h1>Projeto por: {{user.name}}</h1>
+    <ul>
+
+        <li>Destino: {{project.destination}}</li>
+        <li>Orçamento: {{budget}}</li>
+
+    </ul>
+    <ul>
+        {{#each projectItems}}
+            <div class="project-item">
+                <li>Item: {{this.name}}</li>
+                <li>Descrição: {{this.description}}</li>
+                <li>Custo: {{this.cost}}</li>
+            </div>
+            {{#if ../isMyProject}}
+                <div>
+                    <a href="/project-item/edit/{{this.id}}">Editar</a>
+                    <form action="/project-item/remove" method="post">
+                        <input type="hidden" name="id" value="{{this.id}}">
+                        <input type="hidden" name="projectId" value="{{this.ProjectId}}">
+                        <input type="submit" value="Excluir" class="btn">
+                    </form>
+                <div>
+            {{/if}}
+        {{/each}}
+    </ul>
+        {{#if isMyProject}}
+            <form action="/project-item/{{project.id}}" method="get">
+                <input type="submit" class="btn" value="Adicionar item"> 
+            </form>
+        {{else}}
+            <form action="/review/{{project.id}}" method="get">
+                <input type="submit" class="btn" value="Adicionar avaliação">
+            </form>
+        {{/if}}
+    <ul>
+        {{#each reviews}}
+            <li>
+                Nota: {{this.grade}}
+            </li>
+            <li>
+                Comentário: {{this.description}}
+            </li>
+        {{/each}}
+    </ul>
 </div>

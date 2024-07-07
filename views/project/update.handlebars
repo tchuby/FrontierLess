@@ -1,0 +1,33 @@
+<div class="container">
+    <h1>Editar Projeto</h1>
+    <form action="/project/update" method="post">
+
+        <div class="form-control">
+            <input type="hidden" name="id" value="{{project.id}}">
+
+            <label for="destination">Destino:</label>
+            <input type="text" name="destination" id="destination" value="{{project.destination}}">
+            
+            <label for="exchangeType">Tipo de Intercâmbio:</label>
+            <select name="exchangeType" id="exchangeType">
+                <option value="idioma">Idioma</option>
+                <option value="escola">Escola</option>
+                <option value="faculdade">Faculdade</option>
+                <option value="pós-graduação">Pós-Graduação</option>
+                <option value="pesquisa">Pesquisa</option>
+            </select>
+
+            <label for="status">Andamento:</label>
+            <select name="status" id="status">
+                <option value="progredindo">Progredindo</option>
+                <option value="hiato">Hiato</option>
+                <option value="finalizado">Finalizado</option>
+                <option value="abandonado">Abandonado</option>
+            </select>
+
+            <input type="submit" value="Atualizar">
+
+        </div>
+
+    </form>
+</div>

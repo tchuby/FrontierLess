@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="auth-container">
+
+        <h2>Adicione um item ao projeto</h2>
+
+        <form class="form-control" action="/project-item" method="post">
+
+            <input type="hidden" name="ProjectId" value="{{projectId}}">
+        
+            <label for="name" class="">Nome:</label>
+            <input type="text" name="name" placeholder="nome do item">
+
+            <label for="cost" class="">Custo:</label>
+            <input type="number" name="cost" placeholder="custo do item" step="0.01" min="0">
+
+            <label for="description" class="">Descrição:</label>
+            <input type="text" name="description" placeholder="descrição do item">
+
+            <input type="submit" value="Adicionar">
+    
+         </form>
+    </div>
+</div>

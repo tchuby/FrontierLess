@@ -1,6 +1,5 @@
-const { DataTypes } = require('sequelize')
-
-const db = require('../db/connection')
+const { DataTypes } = require('sequelize');
+const db = require('../db/connection');
 
 const User = db.define('User', {
     name: {
@@ -19,7 +18,6 @@ const User = db.define('User', {
         type: DataTypes.DATE,
         allowNull: true
     }
-})
+});
 
-
-module.exports  = User
+module.exports = User;

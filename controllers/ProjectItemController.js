@@ -3,23 +3,35 @@ const Project = require('../models/Project');
 
 module.exports = class ProjectItemController {
 
+    static showCreate(req, res) {
+        const projectId = req.params.projectId
+
+        req.session.save(() => {
+            res.render('project-item/create', { projectId });
+        });
+    }
+
     // Cria um novo ProjectItem
     static async createProjectItem(req, res) {
         try {
-            const { name, custo, description, projectId } = req.body;
+            const projectItem = req.body;
+            console.log(projectItem)
 
-            if (!name || !projectId) {
+            if (!projectItem.name || !projectItem.ProjectId) {
                 return res.status(400).send('Name and projectId are required');
             }
 
             const newProjectItem = await ProjectItem.create({
-                name,
-                custo,
-                description,
-                ProjectId: projectId // associando com o ID do projeto
+                name: projectItem.name,
+                cost: projectItem.cost,
+                description: projectItem.description,
+                ProjectId: projectItem.ProjectId // associando com o ID do projeto
             });
 
-            res.status(201).json(newProjectItem);
+            req.session.save(() => {
+                res.redirect(`/project/${projectItem.ProjectId}`);
+            });
+            
         } catch (error) {
             console.error(error);
             res.status(500).send('Server Error');
@@ -62,6 +74,63 @@ module.exports = class ProjectItemController {
         } catch (error) {
             console.error(error);
             res.status(500).send('Server Error');
+        }
+    }
+
+    static async remove(req, res) {
+        const id = req.body.id;
+
+        try {
+            await ProjectItem.destroy({ where: { id: id } });
+
+            req.session.save(() => {
+                res.redirect(`/project/${req.body.projectId}`);
+            });
+        } catch (err) {
+            console.log(`Erro ao excluir o projeto: ${err}`);
+            res.status(500).send('Erro interno do servidor');
+        }
+    }
+
+    static async showEdit(req, res){
+        const id = req.params.id;
+
+        try {
+            const projectItem = await ProjectItem.findOne({
+                where: { id: id },
+                raw: true
+            });
+
+            if (projectItem) {
+                req.session.save(() => {
+                    res.render('project-item/update', { projectItem });
+                });
+            } else {
+                res.status(404).send('Item não encontrado');
+            }
+        } catch (err) {
+            console.error('Erro ao buscar projeto:', err);
+            res.status(500).send('Erro interno do servidor');
+        }
+    }
+
+    static async edit(req, res){
+        const id = req.body.id;
+
+        const updatedProjectItem = {
+            name: req.body.name,
+            cost: req.body.cost,
+            description: req.body.description,
+        };
+
+        try {
+            await ProjectItem.update(updatedProjectItem, { where: { id: id } });
+            req.session.save(() => {
+                res.redirect(`/project/${req.body.ProjectId}`);
+            });
+        } catch (err) {
+            console.log('Erro ao atualizar item do projeto: ' + err);
+            res.status(500).send('Erro interno do servidor');
         }
     }
 }

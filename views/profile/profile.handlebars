@@ -25,13 +25,38 @@
         </section>
     </div>
     <div>
-        {{!-- {{{> userProfile}}} --}}
+        <h1>
+            Projetos de: 
+        </h1>
+
+        <figure>
+            <blockquote>
+                "{{userProfile.name}}"
+            </blockquote>
+        </figure>
+
         <a href="/project/add">Adicionar Projeto</a>
-        
     </div>
-    <div>
-        {{!-- {{{> userProjects}}} --}}
+
+    <div class="container">
+        {{#each userProjects}}
+            <li class="project-inline">
+                <a href="/project/{{this.id}}">
+                    <div>
+                        Destino: {{this.destination}} Status: {{this.status}}
+                    </div>
+                </a>
+                <div>
+                    <a href="/project/update/{{this.id}}">Editar</a>
+                    <form action="/project/remove" method="post">
+                        <input type="hidden" name="id" value="{{this.id}}">
+                        <input type="submit" value="Excluir" class="btn">
+                    </form>
+                <div>
+            </li>
+        {{/each}}
     </div>
+
 </main>
 <script id="projeto-template" type="text/x-handlebars-template">{{>project}}</script>
 <script id="passo-template" type="text/x-handlebars-template">{{>item}}</script>
