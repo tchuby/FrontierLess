@@ -1,5 +1,23 @@
 <div class="container">
-    <div class="search">
-        <input type="search" name="search-projects" placeholder="buscar projetos">
-    </div>
+    {{#if search}}
+        <h1>Buscando por: {{search}}</h1>
+    {{else}}
+        <h1>Todos os projetos: </h1>
+    {{/if}}
+    <form action="/searchProjects" method="get">
+        <input type="text" name="search" id="search" placeholder="Busque um destino">
+        <input type="submit" class="btn" value="Filtrar">
+    </form>
+    <ul>
+    {{#each projects}}
+        <li class="search-list">
+            <div>
+                <a href="/project/{{this.id}}">{{this.destination}}</a>
+            </div>
+            <div>{{this.status}}</div>
+            <div>{{this.updatedAt}}</div>
+            <div>por: <span>{{this.User.name}}</span></div>
+        </li>
+    {{/each}}
+    </ul>
 </div>

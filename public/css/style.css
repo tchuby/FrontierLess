@@ -64,3 +64,20 @@ footer {
     margin: 0.5em auto;
     max-width: 60%;
 }
+
+/* project */
+
+.project-inline {
+    display: flex;
+    margin: 10px;
+    max-width: 60%;
+    text-align: center;
+    justify-content: space-between;
+    background-color: #ccc;
+}
+
+.project-item {
+    margin: 10px;
+    max-width: 60%;
+    background-color: #ccc;
+}

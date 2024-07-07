@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="auth-container">
+
+        <h2>Editar item {{projectItem.name}}</h2>
+
+        <form class="form-control" action="/project-item/edit" method="post">
+
+            <input type="hidden" name="id" value="{{projectItem.id}}">
+
+            <input type="hidden" name="ProjectId" value="{{projectItem.ProjectId}}">
+        
+            <label for="name" class="">Nome:</label>
+            <input type="text" name="name" placeholder="{{projectItem.name}}" value="{{projectItem.ProjectId}}">
+
+            <label for="cost" class="">Custo:</label>
+            <input type="number" name="cost" placeholder="{{projectItem.cost}}" step="0.01" min="0" value="{{projectItem.cost}}">
+
+            <label for="description" class="">Descrição:</label>
+            <input type="text" name="description" placeholder="{{projectItem.description}}" value="{{projectItem.description}}">
+
+            <input type="submit" value="Alterar">
+    
+         </form>
+    </div>
+</div>

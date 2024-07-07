@@ -1,6 +1,6 @@
-const { DataTypes } = require('sequelize')
-const db = require('../db/connection')
-const User = require('./User')
+const { DataTypes } = require('sequelize');
+const db = require('../db/connection');
+const User = require('./User');
 
 const Project = db.define('Project', {
     destination: {
@@ -11,17 +11,16 @@ const Project = db.define('Project', {
         type: DataTypes.ENUM,
         values: ['progredindo', 'hiato', 'finalizado', 'abandonado'],
         allowNull: false,
-        defaultValue: 'progredindo' // Opcional: define um valor padrão
+        defaultValue: 'progredindo'
     },
     exchangeType: {
         type: DataTypes.ENUM,
         values: ['idioma', 'escola', 'faculdade', 'pós-graduação', 'pesquisa'],
         allowNull: true
     }
-})
+});
 
-Project.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' })
+Project.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
+User.hasMany(Project, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 
-User.hasMany(Project)
-
-module.exports = Project
+module.exports = Project;

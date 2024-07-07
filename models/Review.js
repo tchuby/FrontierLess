@@ -17,6 +17,6 @@ Review.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' }
 Review.belongsTo(Project, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 
 User.hasMany(Review);
-Project.hasMany(Review);
+Project.hasMany(Review, { as: 'Reviews' });
 
 module.exports = Review;
