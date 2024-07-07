@@ -1,5 +1,4 @@
 const ProjectItem = require('../models/ProjectItem');
-const Project = require('../models/Project');
 
 module.exports = class ProjectItemController {
 
