@@ -18,6 +18,7 @@ const projectRoutes = require('./routes/projectRoutes')
 const profileRoutes = require('./routes/profileRoutes')
 const searchProjectsRoutes = require('./routes/searchProjectsRoute')
 const projectItemRoutes = require('./routes/projectItemRoutes')
+const reviewRoutes = require('./routes/reviewRoutes')
 
 //import controller
 const HomeController = require('./controllers/HomeController')
@@ -85,6 +86,7 @@ app.use((req, res, next) => {
 })
 
 // -- ROTAS --
+app.use('/review', reviewRoutes)
 app.use('/project-item', projectItemRoutes)
 app.use('/searchProjects', searchProjectsRoutes)
 app.use('/profile', profileRoutes)

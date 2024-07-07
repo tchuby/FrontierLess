@@ -42,6 +42,18 @@
             <li>
                 Comentário: {{this.description}}
             </li>
+
+            {{#if this.isMyReview}}
+                <div>
+                    <a href="/review/edit/{{this.id}}">Editar</a>
+                    <form action="/review/remove" method="post">
+                        <input type="hidden" name="id" value="{{this.id}}">
+                        <input type="hidden" name="ProjectId" value="{{this.ProjectId}}">
+                        <input type="submit" value="Excluir" class="btn">
+                    </form>
+                <div>
+            {{/if}}
+
         {{/each}}
     </ul>
 </div>

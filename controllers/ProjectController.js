@@ -34,8 +34,17 @@ module.exports = class ProjectController {
                 where: { ProjectId: project.id },
                 raw: true
             })
+            
+            reviews.forEach((review) => {
+                if(review.UserId === req.session.userid){
+                    review.isMyReview = true
+                }
+                else{
+                    review.isMyReview = false
+                }
+            })
             console.log(reviews)
-
+            
             const isMyProject = (project.UserId === req.session.userid)
 
             if (project) {

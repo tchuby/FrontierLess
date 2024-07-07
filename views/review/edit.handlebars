@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="auth-container">
+
+        <h2>Editar avaliação</h2>
+
+        <form class="form-control" action="/review/edit" method="post">
+
+            <input type="hidden" name="id" value="{{review.id}}">
+
+            <input type="hidden" name="UserId" value="{{userId}}">
+
+            <input type="hidden" name="ProjectId" value="{{review.ProjectId}}">
+        
+            <label for="name" class="">Nota:</label>
+            <input type="number" name="grade" placeholder="{{review.grade}}" value="{{review.grade}}" min="0" max="5">
+
+            <label for="description" class="">Descrição:</label>
+            <input type="text" name="description" placeholder="{{review.description}}" value="{{review.description}}">
+
+            <input type="submit" value="Alterar">
+    
+         </form>
+    </div>
+</div>
