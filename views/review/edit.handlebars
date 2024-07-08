@@ -1,24 +1,23 @@
-<div class="container">
-    <div class="auth-container">
+<main class="container">
+    <h1 class="text-center p-4">Editar projeto</h1>
+    <form action="/review/edit" method="post" class="d-flex flex-column align-items-center">
+        <input type="hidden" name="id" value="{{review.id}}">
+        <input type="hidden" name="UserId" value="{{userId}}">
+        <input type="hidden" name="ProjectId" value="{{review.ProjectId}}">
 
-        <h2>Editar avaliação</h2>
-
-        <form class="form-control" action="/review/edit" method="post">
-
-            <input type="hidden" name="id" value="{{review.id}}">
-
-            <input type="hidden" name="UserId" value="{{userId}}">
-
-            <input type="hidden" name="ProjectId" value="{{review.ProjectId}}">
-        
-            <label for="name" class="">Nota:</label>
-            <input type="number" name="grade" placeholder="{{review.grade}}" value="{{review.grade}}" min="0" max="5">
-
-            <label for="description" class="">Descrição:</label>
-            <input type="text" name="description" placeholder="{{review.description}}" value="{{review.description}}">
-
-            <input type="submit" value="Alterar">
-    
-         </form>
-    </div>
-</div>
+        <div class="p-3 rounded border-bottom border-5 shadow mb-5 w-50">
+            <div>
+                <input type="number" name="grade" placeholder="{{review.grade}}" value="{{review.grade}}" min="0" max="5"
+                    class="form-control-plaintext form-control mb-3 fs-3 text-center border-bottom rounded">
+            </div>
+            <div class="t">
+                <textarea type="text" name="description" placeholder="{{review.description}}"
+                    class="form-control-plaintext form-control mb-3  text-center border-bottom rounded">{{review.description}}</textarea>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <button type="submit" class="btn btn-success mt-3">Adicionar</button>
+                <!-- <button type="text" class="btn btn-danger ms-3 mt-3">Cancelar</button>-->
+            </div>
+        </div>
+    </form>
+</main>

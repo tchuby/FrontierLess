@@ -1,23 +1,24 @@
-<div class="container">
-    <div class="auth-container">
+<main class="container">
+    <h1 class="text-center p-4">Adicione um item ao projeto</h1>
+    <form action="/project-item" method="post" class="d-flex flex-column align-items-center">
+        <input type="hidden" name="ProjectId" value="{{projectId}}">
 
-        <h2>Adicione um item ao projeto</h2>
+        <div class="p-3 rounded border-bottom border-5 shadow mb-5">
+            <div>
+                <input type="text" name="name" placeholder="Nome do item"
+                    class="form-control-plaintext form-control mb-3 fs-3 text-center border-bottom rounded">
+            </div>
+            <div class="t">
+                <input type="number" name="cost" placeholder="custo do item" step="0.01" min="0"
+                    class="form-control-plaintext form-control mb-3 text-center border-bottom rounded">
+                <textarea type="text" name="description" placeholder="descrição do item"
+                    class="form-control-plaintext form-control mb-3  text-center border-bottom rounded"></textarea>
+            </div>
 
-        <form class="form-control" action="/project-item" method="post">
-
-            <input type="hidden" name="ProjectId" value="{{projectId}}">
-        
-            <label for="name" class="">Nome:</label>
-            <input type="text" name="name" placeholder="nome do item">
-
-            <label for="cost" class="">Custo:</label>
-            <input type="number" name="cost" placeholder="custo do item" step="0.01" min="0">
-
-            <label for="description" class="">Descrição:</label>
-            <input type="text" name="description" placeholder="descrição do item">
-
-            <input type="submit" value="Adicionar">
-    
-         </form>
-    </div>
-</div>
+            <div class="d-flex justify-content-center align-items-center">
+                <button type="submit" class="btn btn-success mt-3">Adicionar</button>
+                <!-- <button type="text" class="btn btn-danger ms-3 mt-3">Cancelar</button>-->
+            </div>
+        </div>
+    </form>
+</main>

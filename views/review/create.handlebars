@@ -1,20 +1,21 @@
-<div class="container">
-    <div class="auth-container">
+<main class="container">
+    <h1 class="text-center p-4">Avalie o projeto</h1>
+    <form action="/review" method="post" class="d-flex flex-column align-items-center">
+        <input type="hidden" name="ProjectId" value="{{projectId}}">
 
-        <h2>Avalie o projeto: </h2>
-
-        <form class="form-control" action="/review" method="post">
-
-            <input type="hidden" name="ProjectId" value="{{projectId}}">
-        
-            <label for="grade" class="">Nota:</label>
-            <input type="number" name="grade" placeholder="este projeto é útil?" min="0" max="5">
-
-            <label for="description" class="">Descrição:</label>
-            <input type="text" name="description" placeholder="comente sobre o projeto">
-
-            <input type="submit" value="Adicionar avaliação">
-    
-         </form>
-    </div>
-</div>
+        <div class="p-3 rounded border-bottom border-5 shadow mb-5 w-50">
+            <div>
+                <input type="number" name="grade" placeholder="Quanto esse projeto e util?" min="0" max="5"
+                    class="form-control-plaintext form-control mb-3 fs-3 text-center border-bottom rounded">
+            </div>
+            <div class="t">
+                <textarea type="text" name="description" placeholder="Comente sobre o projeto"
+                    class="form-control-plaintext form-control mb-3  text-center border-bottom rounded"></textarea>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <button type="submit" class="btn btn-success mt-3">Adicionar</button>
+                <!-- <button type="text" class="btn btn-danger ms-3 mt-3">Cancelar</button>-->
+            </div>
+        </div>
+    </form>
+</main>

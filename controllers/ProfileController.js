@@ -39,7 +39,7 @@ module.exports = class ProfileController {
     static async createProject(req, res) {
         const project = {
             destination: req.body.destination,
-            status: 'progredindo',
+            status: req.body.status,
             exchangeType: req.body.exchangeType,
             UserId: req.session.userid
         }
