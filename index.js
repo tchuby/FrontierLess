@@ -98,8 +98,8 @@ app.get('/', HomeController.showHome)
 
 //realizar conexão permanente
 conn
-    .sync()
-    //.sync({ force: true })
+    //.sync()
+    .sync({ force: true })
     .then(() => {
     // rodar aplicação
     app.listen(port, () => {

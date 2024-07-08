@@ -1,8 +1,23 @@
-main{
+main {
     background-color: white;
 }
-.card{
+
+.card {
     width: 25rem;
+}
+
+.registerMain,
+.loginMain {
+    background-image: url('/img/login_register.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.projectImg {
+    background-image: url('/img/proj.jpg');
+    background-size: cover;
+    background-position: center;
 }
 
 /*messages*/
@@ -15,4 +30,3 @@ main{
     margin: 0.5em auto;
     max-width: 60%;
 }
-

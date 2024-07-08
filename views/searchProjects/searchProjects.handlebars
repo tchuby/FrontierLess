@@ -1,4 +1,4 @@
-<main class="container">
+<main class="container shadow">
     <div>
         {{#if search}}
         <h1>Buscando por: {{search}}</h1>
@@ -17,42 +17,64 @@
         </form>
     </div>
 
-    <ul class="d-flex flex-wrap justify-content-center p-0" >
+    <ul class="d-flex flex-wrap justify-content-center p-0">
         {{#each projects}}
-        <li class="list-group-item card p-0 mt-3 m-1">
+
+        <li class="list-group-item card p-0 my-3 w-100">
+
             <div
                 class="card-header bg-dark text-light pb-0 d-flex justify-content-between align-items-center rounded-top ps-3 pe-3">
                 <h3>
                     <input class="form-control-plaintext text-light fw-bold d-flex align-items-center" type="text"
                         value="{{this.destination}}" disabled>
                 </h3>
-            </div>
-            <a href="/project/{{this.id}}" class="text-decoration-none text-dark">
-                <div class="card-body bg-light p-3 pb-0 border rounded-bottom d-flex ">
-                    <div class="w-100">
-                        <div class="text-center">
-                            <label for="" class="form-label">Status</label>
-                            <input type="text" class="form-control m-0" value="{{this.status}}" disabled>
-                        </div>
-                        <div class="text-center">
-                            <label for="" class="form-label">Tipo</label>
-                            <input type="text" class="form-control m-0" value="{{this.exchangeType}}" disabled>
-                        </div>
-                        <div class="text-center">
-                            <label for="" class="form-label">Criado em: </label>
-                            <input type="text" class="form-control m-0" value="{{this.updatedAt}}" disabled>
-                        </div>
-                        <div class="text-center">
-                            <label for="" class="form-label">Criado Por: </label>
-                            <input type="text" class="form-control m-0" value="{{this.User.name}}" disabled>
-                        </div>
-                        <div class="text-end p-1">
-                            <i class="bi bi-arrows-angle-expand text-dark"> Expandir</i>
-                        </div>
+                <div class="text-center border rounded px-3 text-light">
+                    <div class="text-light">
+                        <i class="bi bi-people fs-3 text-center"> {{this.User.name}}</i>
                     </div>
                 </div>
-            </a>
+            </div>
+
+            <div class="card-body bg-light py-0 ps-0 border rounded-bottom overflow-hidden">
+                <a href="/project/{{this.id}}" class="text-decoration-none text-dark ">
+                    <div class="row ">
+                        <div class="col-3 projectImg border-end border-3">
+                        </div>
+                        <div class="col-9 p-0">
+                            <div class="row">
+                                <div class="col-9 p-3">
+                                    <p class="ps-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad quas
+                                        dolores esse
+                                        corporis abtempora cum, repellat non ex ratione tenetur magnam? Nam, ducimus
+                                        sint repudiandaeconsectetur voluptas voluptates delectus.</p>
+                                </div>
+                                <div class="col-3 p-3 pb-0">
+                                    <div class="w-100">
+                                        <div class="text-center">
+                                            <label for="" class="form-label">Status</label>
+                                            <input type="text" class="form-control m-0" value="{{this.status}}"
+                                                disabled>
+                                        </div>
+                                        <div class="text-center">
+                                            <label for="" class="form-label">Tipo</label>
+                                            <input type="text" class="form-control m-0" value="{{this.exchangeType}}"
+                                                disabled>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between p-1 mt-1">
+                                <p class="m-0"> {{this.updatedAt}}</p>
+                                <i class="bi bi-arrows-angle-expand"> Expandir</i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
         </li>
+
         {{/each}}
     </ul>
 </main>

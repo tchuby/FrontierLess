@@ -1,16 +1,25 @@
-<main class="container pt-3 d-flex flex-column min-vh-100">
-    <h2 class="text-center mb-3">Meus Projetos</h2>
+<main class="container pt-3 d-flex flex-column min-vh-100 shadow">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <a href="/project/add" class="p-2 border rounded bg-dark text-light text-decoration-none">+ Add projeto</a>
+        </div>
+        <div>
+            <h2 class="text-center mb-3">Meus Projetos</h2>
+        </div>
+        <div class="text-center border rounded px-3 bg-dark">
+            <div class="text-light">
+                <i class="bi bi-people fs-3 text-center"> {{userProfile.name}}</i>
+            </div>
+        </div>
+    </div>
+
 
     <section class="border-top p-3">
-        <div class="">
-            <!-- <button type="button" class="btn btn-dark" onclick="criaProjeto()">+ Criar projeto</button>-->
-            <a href="/project/add" class="p-2 border rounded bg-dark text-light text-decoration-none">+ Add projeto</a>
 
-        </div>
-        <ol class="d-flex flex-wrap justify-content-center p-0" id="listaProjetos">
-
+        <ol class="p-0" id="listaProjetos">
             {{#each userProjects}}
-            <li class="list-group-item card p-0 mt-3 m-1">
+
+            <li class="list-group-item card p-0 my-3 w-100">
                 <div
                     class="card-header bg-dark text-light pb-0 d-flex justify-content-between align-items-center rounded-top ps-3 pe-3">
                     <h3>
@@ -32,39 +41,40 @@
                         </form>
                     </div>
                 </div>
-                <a href="/project/{{this.id}}" class="text-decoration-none text-dark">
-                    <div class="card-body bg-light p-3 pb-0 border rounded-bottom d-flex ">
-                        <div class="w-100">
-                            <div class="text-center">
-                                <label for="" class="form-label">Status</label>
-                                <input type="text" class="form-control m-0" value="{{this.status}}" disabled>
+                <div class="card-body bg-light py-0 ps-0 border rounded-bottom overflow-hidden">
+                    <a href="/project/{{this.id}}" class="text-decoration-none text-dark ">
+                        <div class="row ">
+                            <div class="col-3 projectImg border-end border-3">
                             </div>
-                            <div class="text-center">
-                                <label for="" class="form-label">Tipo</label>
-                                <input type="text" class="form-control m-0" value="{{this.exchangeType}}" disabled>
+                            <div class="col-6 p-3">
+                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad quas dolores esse
+                                    corporis
+                                    ab
+                                    tempora cum, repellat non ex ratione tenetur magnam? Nam, ducimus sint repudiandae
+                                    consectetur voluptas voluptates delectus.</p>
                             </div>
-                            <div class="text-end p-1">
-                                <i class="bi bi-arrows-angle-expand text-dark"> Expandir</i>
+                            <div class="col-3 p-3 pb-0">
+                                <div class="w-100">
+                                    <div class="text-center">
+                                        <label for="" class="form-label">Status</label>
+                                        <input type="text" class="form-control m-0" value="{{this.status}}" disabled>
+                                    </div>
+                                    <div class="text-center">
+                                        <label for="" class="form-label">Tipo</label>
+                                        <input type="text" class="form-control m-0" value="{{this.exchangeType}}"
+                                            disabled>
+                                    </div>
+                                    <div class="text-end p-1">
+                                        <i class="bi bi-arrows-angle-expand text-dark"> Expandir</i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </li>
+
             {{/each}}
         </ol>
     </section>
-    <div>
-        <h1>
-            Projetos de:
-        </h1>
-
-        <figure>
-            <blockquote>
-                "{{userProfile.name}}"
-            </blockquote>
-        </figure>
-
-    </div>
-
-
 </main>
