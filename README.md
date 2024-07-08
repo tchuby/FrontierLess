@@ -31,6 +31,6 @@ se campo onde preenche-se a senha.
 final a mensagem 'Aplicação rodando';
 
 #7 - abra o navegador no endereço http://localhost:3000/
-    #7.1 se a porta estiver ocupada altere a constante
+    #7.1 se a porta estiver ocupada altere no index.js a constante
     const port = 3000, para outro número e acesse o local
     host nesta porta;
