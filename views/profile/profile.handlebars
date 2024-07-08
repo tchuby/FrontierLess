@@ -1,32 +1,61 @@
-<main class="container pt-3 d-flex flex-column min-vh-100" style="background-color: white;">
-    <div class="row ">
-        <h2 class="text-center mb-3">Meus Projetos</h2>
+<main class="container pt-3 d-flex flex-column min-vh-100">
+    <h2 class="text-center mb-3">Meus Projetos</h2>
 
-        <section class="col-md-5 border-top p-3 d-flex flex-column max-height-sm">
-            <div class="form-check form-switch d-flex justify-content-between align-items-center">
-                <input class="form-check-input" type="checkbox" role="switch" onclick="statusInpt(event)" checked>
-                <button type="button" class="btn btn-dark" onclick="criaProjeto()">+ Criar projeto</button>
-            </div>
+    <section class="border-top p-3">
+        <div class="">
+            <!-- <button type="button" class="btn btn-dark" onclick="criaProjeto()">+ Criar projeto</button>-->
+            <a href="/project/add" class="p-2 border rounded bg-dark text-light text-decoration-none">+ Add projeto</a>
 
-            <ol class="list-group list-group-flush" id="listaProjetos">
-                <!--OS PROJETOS SERÃO ADICIONADOS AQUI-->
-            </ol>
-        </section>
+        </div>
+        <ol class="d-flex flex-wrap justify-content-center p-0" id="listaProjetos">
 
-        <section class="col-md-7 border-top p-3">
-            <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-dark" onclick="criaPasso()">+ Cria Passo</button>
-            </div>
+            {{#each userProjects}}
+            <li class="list-group-item card p-0 mt-3 m-1">
+                <div
+                    class="card-header bg-dark text-light pb-0 d-flex justify-content-between align-items-center rounded-top ps-3 pe-3">
+                    <h3>
+                        <input class="form-control-plaintext text-light fw-bold d-flex align-items-center" type="text"
+                            value="{{this.destination}}" disabled>
+                    </h3>
+                    <div class="d-flex align-items-center">
+                        <button type="button" class="btn btn-dark text-center">
+                            <a href="/project/update/{{this.id}}" class="text-decoration-none text-center">
+                                <i class="bi bi-pencil-square text-light"> Editar</i>
+                            </a>
+                        </button>
 
-            <ol class="accordion accordion-flush list-group list-group-flush" id="listaPassos"
-                id="accordionFlushExample">
-                <!--OS PASSOS SERÃO ADICIONADOS AQUI-->
-            </ol>
-        </section>
-    </div>
+                        <form action="/project/remove" method="post">
+                            <input type="hidden" name="id" value="{{this.id}}">
+                            <button type="submit" class="btn btn-dark text-center">
+                                <i class="bi bi-trash"> Deletar</i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <a href="/project/{{this.id}}" class="text-decoration-none text-dark">
+                    <div class="card-body bg-light p-3 pb-0 border rounded-bottom d-flex ">
+                        <div class="w-100">
+                            <div class="text-center">
+                                <label for="" class="form-label">Status</label>
+                                <input type="text" class="form-control m-0" value="{{this.status}}" disabled>
+                            </div>
+                            <div class="text-center">
+                                <label for="" class="form-label">Tipo</label>
+                                <input type="text" class="form-control m-0" value="{{this.exchangeType}}" disabled>
+                            </div>
+                            <div class="text-end p-1">
+                                <i class="bi bi-arrows-angle-expand text-dark"> Expandir</i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {{/each}}
+        </ol>
+    </section>
     <div>
         <h1>
-            Projetos de: 
+            Projetos de:
         </h1>
 
         <figure>
@@ -35,28 +64,7 @@
             </blockquote>
         </figure>
 
-        <a href="/project/add">Adicionar Projeto</a>
     </div>
 
-    <div class="container">
-        {{#each userProjects}}
-            <li class="project-inline">
-                <a href="/project/{{this.id}}">
-                    <div>
-                        Destino: {{this.destination}} Status: {{this.status}}
-                    </div>
-                </a>
-                <div>
-                    <a href="/project/update/{{this.id}}">Editar</a>
-                    <form action="/project/remove" method="post">
-                        <input type="hidden" name="id" value="{{this.id}}">
-                        <input type="submit" value="Excluir" class="btn">
-                    </form>
-                <div>
-            </li>
-        {{/each}}
-    </div>
 
 </main>
-<script id="projeto-template" type="text/x-handlebars-template">{{>project}}</script>
-<script id="passo-template" type="text/x-handlebars-template">{{>item}}</script>

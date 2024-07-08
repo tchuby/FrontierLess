@@ -1,25 +1,25 @@
-<div class="container">
-    <div class="auth-container">
+<main class="container">
+    <h1 class="text-center p-4">Editar item {{projectItem.name}}</h1>
+    <form action="/project-item/edit" method="post" class="d-flex flex-column align-items-center">
+        <input type="hidden" name="id" value="{{projectItem.id}}">
+        <input type="hidden" name="ProjectId" value="{{projectItem.ProjectId}}">
 
-        <h2>Editar item {{projectItem.name}}</h2>
+        <div class="p-3 rounded border-bottom border-5 shadow mb-5">
+            <div>
+                <input type="text" name="name" placeholder="{{projectItem.name}}" value="{{projectItem.name}}"
+                    class="form-control-plaintext form-control mb-3 fs-3 text-center border-bottom rounded">
+            </div>
+            <div class="">
+                <input type="number" name="cost"  placeholder="{{projectItem.cost}}" value="{{projectItem.cost}}" step="0.01" min="0"
+                    class="form-control-plaintext form-control mb-3 text-center border-bottom rounded">
+                <textarea type="text" name="description" placeholder="{{projectItem.description}}"
+                    class="form-control-plaintext form-control mb-3  text-center border-bottom rounded">{{projectItem.description}}</textarea>
+            </div>
 
-        <form class="form-control" action="/project-item/edit" method="post">
-
-            <input type="hidden" name="id" value="{{projectItem.id}}">
-
-            <input type="hidden" name="ProjectId" value="{{projectItem.ProjectId}}">
-        
-            <label for="name" class="">Nome:</label>
-            <input type="text" name="name" placeholder="{{projectItem.name}}" value="{{projectItem.ProjectId}}">
-
-            <label for="cost" class="">Custo:</label>
-            <input type="number" name="cost" placeholder="{{projectItem.cost}}" step="0.01" min="0" value="{{projectItem.cost}}">
-
-            <label for="description" class="">Descrição:</label>
-            <input type="text" name="description" placeholder="{{projectItem.description}}" value="{{projectItem.description}}">
-
-            <input type="submit" value="Alterar">
-    
-         </form>
-    </div>
-</div>
+            <div class="d-flex justify-content-center align-items-center">
+                <button type="submit" class="btn btn-success mt-3">Adicionar</button>
+                <!-- <button type="text" class="btn btn-danger ms-3 mt-3">Cancelar</button>-->
+            </div>
+        </div>
+    </form>
+</main>

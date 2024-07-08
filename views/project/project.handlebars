@@ -1,59 +1,119 @@
-<div class="container">
-    <h1>Projeto por: {{user.name}}</h1>
-    <ul>
+<main class="container">
+    <h2>Projeto por: {{user.name}}</h2>
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="text-center w-100">
+            <h3>{{project.destination}}</h3>
+            <br>
+            <h4>{{budget}}</h4>
 
-        <li>Destino: {{project.destination}}</li>
-        <li>Orçamento: {{budget}}</li>
-
-    </ul>
-    <ul>
-        {{#each projectItems}}
-            <div class="project-item">
-                <li>Item: {{this.name}}</li>
-                <li>Descrição: {{this.description}}</li>
-                <li>Custo: {{this.cost}}</li>
-            </div>
-            {{#if ../isMyProject}}
-                <div>
-                    <a href="/project-item/edit/{{this.id}}">Editar</a>
-                    <form action="/project-item/remove" method="post">
-                        <input type="hidden" name="id" value="{{this.id}}">
-                        <input type="hidden" name="projectId" value="{{this.ProjectId}}">
-                        <input type="submit" value="Excluir" class="btn">
-                    </form>
-                <div>
-            {{/if}}
-        {{/each}}
-    </ul>
-        {{#if isMyProject}}
+            {{#if isMyProject}}
             <form action="/project-item/{{project.id}}" method="get">
-                <input type="submit" class="btn" value="Adicionar item"> 
+                <button type="submit" class="btn btn-dark mt-3">Adicionar Item</button>
             </form>
-        {{else}}
+            {{else}}
             <form action="/review/{{project.id}}" method="get">
-                <input type="submit" class="btn" value="Adicionar avaliação">
+                <button type="submit" class="btn btn-dark mt-3">Adicionar Avaliação</button>
             </form>
-        {{/if}}
-    <ul>
-        {{#each reviews}}
-            <li>
-                Nota: {{this.grade}}
-            </li>
-            <li>
-                Comentário: {{this.description}}
-            </li>
-
-            {{#if this.isMyReview}}
-                <div>
-                    <a href="/review/edit/{{this.id}}">Editar</a>
-                    <form action="/review/remove" method="post">
-                        <input type="hidden" name="id" value="{{this.id}}">
-                        <input type="hidden" name="ProjectId" value="{{this.ProjectId}}">
-                        <input type="submit" value="Excluir" class="btn">
-                    </form>
-                <div>
             {{/if}}
 
-        {{/each}}
-    </ul>
-</div>
+
+            <ul class="list-group list-group-flush">
+                {{#each projectItems}}
+                <li class="list-group-item d-flex justify-content-between">
+                    <form action="" method="post" class="accordion-item mt-3 border rounded w-100">
+                        <button class="accordion-header accordion-button collapsed bg-dark rounded-top p-3 "
+                            type="button" data-bs-toggle="collapse" data-bs-target="#item{{this.id}}"
+                            aria-expanded=" false" aria-controls="item{{this.id}}">
+                            <div class=" input-group form-check align-items-center">
+                                <input class="form-check-input me-3 rounded" type="checkbox">
+                                <input type="text" class="border-0 bg-dark text-light fw-bold rounded"
+                                    placeholder="Nome Do Passo" nome="name" value="{{this.name}}">
+                            </div>
+                        </button>
+
+                        <div id="item{{this.id}}" class="accordion-collapse collapse p-3 border rounded-bottom"
+                            data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body">
+                                <label class="d-flex align-items-center">Custo</label>
+                                <input type="text" class="form-control" name="cost" value="{{this.cost}}">
+                                <label class="d-flex align-items-center">Descrição</label>
+                                <textarea class="form-control" name="description">{{this.description}}</textarea>
+                            </div>
+
+                            <div class="accordion-footer d-flex justify-content-end p-2 bg-dark rounded-bottom mt-3">
+                                <input type="hidden" name="id" value="{{projectItem.id}}">
+                                <input type="hidden" name="ProjectId" value="{{projectItem.ProjectId}}">
+                                <button type="submit" class="btn btn-outline-success p-1 me-2">Salvar</button>
+                            </div>
+                        </div>
+                    </form>
+                    {{#if ../isMyProject}}
+                    <div class="d-flex  justify-content-center align-items-center bg-dark text-light mt-3 rounded">
+                        <button type="button" class="btn btn-dark text-center">
+                            <a href="/project-item/edit/{{this.id}}" class="text-decoration-none text-center">
+                                <i class="bi bi-pencil-square text-light"> Editar</i>
+                            </a>
+                        </button>
+
+                        <form action="/project-item/remove" method="post">
+                            <input type="hidden" name="id" value="{{this.id}}">
+                            <input type="hidden" name="projectId" value="{{this.ProjectId}}">
+                            <button type="submit" class="btn btn-dark text-center">
+                                <i class="bi bi-trash">Deletar</i>
+                            </button>
+                        </form>
+                    </div>
+                    {{/if}}
+                </li>
+                {{/each}}
+            </ul>
+
+            <ul class="mt-5">
+                <h2>Comentarios</h2>
+                {{#each reviews}}
+                <li class="list-group-item d-flex justify-content-between mt-3">
+
+                    <div class="d-flex border rounded  w-100">
+                        <div class="bg-dark text-light p-3 rounded-start">
+                            <div class="fs-6">
+                                Nota:
+                            </div>
+                            <div class="fs-1 fw-bold">
+                                {{this.grade}}
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            {{this.description}}
+                        </div>
+                    </div>
+
+                    {{#if this.isMyReview}}
+                    <div
+                        class="d-flex flex-column justify-content-center align-items-center bg-dark text-light rounded">
+                        <button type="button" class="btn btn-dark text-center w-100">
+                            <a href="/review/edit/{{this.id}}"
+                                class="text-decoration-none text-center d-flex flex-column align-items-center">
+                                <i class="bi bi-pencil-square text-light"></i>
+                                <span class="text-light">Editar</span>
+
+                            </a>
+                        </button>
+
+                        <form action="/review/remove" method="post">
+                            <input type="hidden" name="id" value="{{this.id}}">
+                            <input type="hidden" name="ProjectId" value="{{this.ProjectId}}">
+                            <button type="submit" class="btn btn-dark text-center">
+                                <i class="bi bi-trash">Deletar</i>
+                            </button>
+                        </form>
+                    </div>
+                    {{/if}}
+                </li>
+                {{/each}}
+            </ul>
+
+
+        </div>
+    </div>
+
+</main>

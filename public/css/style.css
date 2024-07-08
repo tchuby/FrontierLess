@@ -1,60 +1,11 @@
-.accordion-button::after {
-filter: brightness(0%) invert(100%);
+main{
+    background-color: white;
 }
-
-.container {
-    min-height: 60vh;
-    padding: 2em;
-}
-
-footer {
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-top: 1px solid #ccc;
-}
-
-/* Login e Register*/
-
-.auth-container {
-    max-width: 450px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-}
-
-.auth-container h2 {
-    margin-bottom: 1em;
-    border-left: 3px solid #ccc;
-    padding: 0.3em;
-}
-
-.auth-container a {
-    color: #ccc;
-}
-
-.form-control {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1em;
-}
-
-.form-control label {
-    font-weight: bold;
-    margin-bottom: 0.5em;
-}
-
-.form-control input,
-.form-control textarea {
-    margin: 2px;
-    padding: 7px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
+.card{
+    width: 25rem;
 }
 
 /*messages*/
-
 .message {
     padding: 0.5em;
     background-color: tomato;
@@ -65,19 +16,3 @@ footer {
     max-width: 60%;
 }
 
-/* project */
-
-.project-inline {
-    display: flex;
-    margin: 10px;
-    max-width: 60%;
-    text-align: center;
-    justify-content: space-between;
-    background-color: #ccc;
-}
-
-.project-item {
-    margin: 10px;
-    max-width: 60%;
-    background-color: #ccc;
-}

@@ -1,24 +1,41 @@
-<div class="container">
-    <h1>Novo Projeto</h1>
-    <form action="/project/add" method="post">
+<main class="container">
+    <h1 class="text-center p-4">Novo Projeto</h1>
+    <form action="/project/add" method="post" class="d-flex flex-column align-items-center">
+        <div class="p-3 rounded border-bottom border-5 shadow mb-5">
+            <div>
+                <input type="text"
+                    class="form-control-plaintext form-control mb-3 fs-3 text-center border-bottom rounded"
+                    name="destination" id="destination" placeholder="Destino do Intercâmbio">
+            </div>
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <label for="" class="form-label">Status</label>
+                    <select class="form-select text-center" name="status">
+                        <option>Selecione</option>
+                        <option value="progredindo">Progredindo</option>
+                        <option value="hiato">Hiato</option>
+                        <option value="finalizado">Finalizado</option>
+                        <option value="abandonado">Abandonado</option>
+                    </select>
+                </div>
+                <div class="col-md-6 text-center">
+                    <label for="" class="form-label">Tipo</label>
+                    <select class="form-select text-center" name="exchangeType">
+                        <option>Selecione</option>
+                        <option value="idioma">Idioma</option>
+                        <option value="escola">Escola</option>
+                        <option value="faculdade">Faculdade</option>
+                        <option value="pós-graduação">Pós-graduação</option>
+                        <option value="pesquisa">Pesquisa</option>
 
-        <div class="form-control">
-            
-            <label for="destination">Destino:</label>
-            <input type="text" name="destination" id="destination" placeholder="Destino do Intercâmbio">
-            
-            <label for="exchangeType">Tipo de Intercâmbio:</label>
-            <select name="exchangeType" id="exchangeType">
-                <option value="idioma">Idioma</option>
-                <option value="escola">Escola</option>
-                <option value="faculdade">Faculdade</option>
-                <option value="pós-graduação">Pós-Graduação</option>
-                <option value="pesquisa">Pesquisa</option>
-            </select>
+                    </select>
+                </div>
 
-            <input type="submit" value="Adicionar">
-
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <button type="submit" class="btn btn-success mt-3">Salvar</button>
+                <button type="text" class="btn btn-danger ms-3 mt-3">Cancelar</button>
+            </div>
         </div>
-
     </form>
-</div>
+</main>
