@@ -1,21 +1,23 @@
-<main class="container">
-    <div>
-        <h2 class="text-center p-4">Entrar no FrontierLess</h2>
+<main class="container-fluid loginMain">
+    <div class="">
+        <form class="p-3 d-flex justify-content-center pt-5" action="/login" method="post">
+            <div class="border shadow p-3 rounded bg-light ">
+                <h2 class="text-center p-3">Entrar no FrontierLess</h2>
+
+                <div class="mb-3">
+                    <input type="email" class="form-control p-3" id="email" placeholder="E-mail" name="email">
+                    <input type="password" class="form-control p-3 mt-3" id="password" placeholder="Senha"
+                        name="password">
+                </div>
+                <button type="submit" class="btn btn-dark fs-4 w-100">Entrar</button>
+                <a class="link" href="">Esqueceu a senha?</a>
+                <hr>
+                <div class="d-flex justify-content-center">
+                    <a class="text-decoration-none border rounded text-center text-light p-2 bg-success"
+                        href="/register">Criar nova
+                        conta</a>
+                </div>
+            </div>
+        </form>
     </div>
-    <form class="p-3 d-flex flex-column align-items-center" action="/login" method="post">
-        <div class="border shadow p-3 rounded w-50 mb-5">
-            <div class="mb-3">
-                <input type="email" class="form-control p-3" id="email" placeholder="E-mail" name="email">
-                <input type="password" class="form-control p-3 mt-3" id="password" placeholder="Senha" name="password">
-            </div>
-            <button type="submit" class="btn btn-dark fs-4 w-100">Entrar</button>
-            <a class="link" href="">Esqueceu a senha?</a>
-            <hr>
-            <div class="d-flex justify-content-center">
-                <a class="text-decoration-none border rounded text-center text-light p-2 bg-success"
-                    href="/register">Criar nova
-                    conta</a>
-            </div>
-        </div>
-    </form>
 </main>

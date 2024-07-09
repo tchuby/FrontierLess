@@ -1,29 +1,37 @@
-<main class="container">
-    <h2>Projeto por: {{user.name}}</h2>
+<main class="container min-vh-100 shadow">
     <div class="d-flex justify-content-center align-items-center">
         <div class="text-center w-100">
-            <h3>{{project.destination}}</h3>
-            <br>
-            <h4>{{budget}}</h4>
+            <div>
+                <div class="d-flex justify-content-between align-items-center border mt-3 rounded shadow p-3">
+                    <h3>{{project.destination}}</h3>
+                    <h4>Custo: R$ {{budget}},00</h4>
+                    <div class="text-center border rounded px-3 bg-dark text-light">
+                        <div class="text-light">
+                            <i class="bi bi-people fs-3 text-center"> {{user.name}}</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             {{#if isMyProject}}
             <form action="/project-item/{{project.id}}" method="get">
-                <button type="submit" class="btn btn-dark mt-3">Adicionar Item</button>
+                <button type="submit" class="btn btn-dark mt-3 fs-4">+ Adicionar Item</button>
             </form>
             {{else}}
-            <form action="/review/{{project.id}}" method="get">
-                <button type="submit" class="btn btn-dark mt-3">Adicionar Avaliação</button>
+            <form action="/review/{{project.id}}" method="get" >
+                <button type="submit" class="btn btn-dark mt-3 fs-4">+ Adicionar Avaliação</button>
             </form>
             {{/if}}
 
-
-            <ul class="list-group list-group-flush">
+            <ul class="list-group list-group-flush shadow">
                 {{#each projectItems}}
-                <li class="list-group-item d-flex justify-content-between">
+                
+                <li class="list-group-item d-flex justify-content-between border-0">
                     <form action="" method="post" class="accordion-item mt-3 border rounded w-100">
-                        <button class="accordion-header accordion-button collapsed bg-dark rounded-top p-3 "
-                            type="button" data-bs-toggle="collapse" data-bs-target="#item{{this.id}}"
-                            aria-expanded=" false" aria-controls="item{{this.id}}">
+                        <button class="accordion-header accordion-button collapsed bg-dark rounded p-3 " type="button"
+                            data-bs-toggle="collapse" data-bs-target="#item{{this.id}}" aria-expanded=" false"
+                            aria-controls="item{{this.id}}">
                             <div class=" input-group form-check align-items-center">
                                 <input class="form-check-input me-3 rounded" type="checkbox">
                                 <input type="text" class="border-0 bg-dark text-light fw-bold rounded"
@@ -31,15 +39,14 @@
                             </div>
                         </button>
 
-                        <div id="item{{this.id}}" class="accordion-collapse collapse p-3 border rounded-bottom"
+                        <div id="item{{this.id}}" class="accordion-collapse collapse border rounded-bottom"
                             data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
+                            <div class="accordion-body p-3">
                                 <label class="d-flex align-items-center">Custo</label>
                                 <input type="text" class="form-control" name="cost" value="{{this.cost}}">
                                 <label class="d-flex align-items-center">Descrição</label>
                                 <textarea class="form-control" name="description">{{this.description}}</textarea>
                             </div>
-
                             <div class="accordion-footer d-flex justify-content-end p-2 bg-dark rounded-bottom mt-3">
                                 <input type="hidden" name="id" value="{{projectItem.id}}">
                                 <input type="hidden" name="ProjectId" value="{{projectItem.ProjectId}}">
@@ -68,8 +75,10 @@
                 {{/each}}
             </ul>
 
-            <ul class="mt-5">
-                <h2>Comentarios</h2>
+            <hr>
+
+            <ul class="list-group list-group-flush mt-5">
+                <h2 class="">Comentarios:</h2>
                 {{#each reviews}}
                 <li class="list-group-item d-flex justify-content-between mt-3">
 

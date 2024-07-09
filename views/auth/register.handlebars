@@ -1,19 +1,23 @@
-<main class="container">
-    <h2 class="text-center p-4">Cadastre-se</h2>
-    <form class="p-3 d-flex flex-column align-items-center" action="/register" method="post">
-        <div class="border shadow p-3 rounded w-50 mb-5 ">
-            <div class="mb-3">
-                <input type="text" class="form-control p-3 mb-2" id="name" name="name" placeholder="Nome">
-                <input type="email" class="form-control p-3 mb-2" id="email" placeholder="E-mail" name="email">
-                <input type="password" class="form-control p-3 mb-2" id="password" placeholder="Senha" name="password">
-                <input type="password" class="form-control p-3 mb-2" id="confirmpassword"
-                    placeholder="Confirme sua senha" name="confirmpassword">
+<main class="container-fluid registerMain">
+    <div class="">
+        <form class="p-3 d-flex justify-content-center pt-5" action="/register" method="post">
+            <div class="border shadow p-3 rounded bg-light">
+                <h2 class="p-3 text-center">Criar uma nova conta</h2>
+                <div class="mb-3">
+                    <input type="text" class="form-control p-3 mb-2 border-bottom" id="name" name="name"
+                        placeholder="Nome">
+                    <input type="email" class="form-control p-3 mb-2" id="email" placeholder="E-mail" name="email">
+                    <input type="password" class="form-control p-3 mb-2" id="password" placeholder="Senha"
+                        name="password">
+                    <input type="password" class="form-control p-3 mb-2" id="confirmpassword"
+                        placeholder="Confirme sua senha" name="confirmpassword">
 
-                <label for="birthdate">Data de nascimento</label>
-                <input type="date" class="form-control p-3 mb-2" id="birthdate" name="birthdate">
+                    <label for="birthdate">Data de nascimento</label>
+                    <input type="date" class="form-control p-3 mb-2" id="birthdate" name="birthdate">
+                </div>
+                <button type="submit" class="btn btn-dark fs-3 w-100">Cadastre-se</button>
+                <p>Já possui uma conta? <a href="/login">Clique aqui!</a> </p>
             </div>
-            <button type="submit" class="btn btn-dark fs-4 w-100">Cadastre-se</button>
-            <p>Já possui uma conta? <a href="/login">Clique aqui!</a> </p>
-        </div>
-    </form>
+        </form>
+    </div>
 </main>

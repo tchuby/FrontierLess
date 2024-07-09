@@ -1,20 +1,40 @@
-function criaProjeto() {
-    const lProj = document.getElementById('listaProjetos');
-    const source = document.getElementById("projeto-template").innerHTML;
-    lProj.innerHTML += source;
+google.charts.load('current', {
+    'packages': ['geochart'],
+});
+google.charts.setOnLoadCallback(drawRegionsMap);
+
+function drawRegionsMap() {
+    var data = google.visualization.arrayToDataTable([
+        ['Country', 'Popularity'],
+        ['United States', 1000],
+        ['Canada', 800],
+        ['France', 500],
+        ['United Kingdom', 600],
+        ['Australia', 900],
+        ['Ireland', 900],
+        ['Japan', 300],
+        ['Malta', 200],
+        ['South Africa', 400],
+        ['South korea', 400],
+        ['Italy', 600],
+        ['Germany', 600],
+        ['New Zealand', 800],
+        ['Argentina', 500],
+
+    ]);
+
+    var options = {
+        legend: 'none',
+        };
+    var chart = new google.visualization.GeoChart(document.getElementById('globalMap'));
+
+    chart.draw(data, options);
 }
 
-var cont = 0;
-function criaPasso() {
-    let source = document.getElementById('passo-template').innerHTML;
-    let lPassos = document.getElementById('listaPassos');
 
-    source = source.replaceAll('idReplace', `flush-collapse${cont}`)
-    lPassos.innerHTML += source;
-    cont++;
-}
 
-function statusInpt(oEvent) {
+
+/*function statusInpt(oEvent) {
     let listaProjetos = document.getElementById('listaProjetos');
     let inputs = listaProjetos.querySelectorAll('input');
     let selects = listaProjetos.querySelectorAll('select');
@@ -42,7 +62,6 @@ function statusInpt(oEvent) {
         }
     });
 
-
 }
-
+*/
 
