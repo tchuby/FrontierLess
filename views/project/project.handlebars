@@ -1,4 +1,4 @@
-<main class="container vh-100 shadow">
+<main class="container min-vh-100 shadow">
     <div class="d-flex justify-content-center align-items-center">
         <div class="text-center w-100">
             <div>
@@ -13,20 +13,20 @@
                 </div>
             </div>
 
+
+            {{#if isMyProject}}
+            <form action="/project-item/{{project.id}}" method="get">
+                <button type="submit" class="btn btn-dark mt-3 fs-4">+ Adicionar Item</button>
+            </form>
+            {{else}}
+            <form action="/review/{{project.id}}" method="get" >
+                <button type="submit" class="btn btn-dark mt-3 fs-4">+ Adicionar Avaliação</button>
+            </form>
+            {{/if}}
+
             <ul class="list-group list-group-flush shadow">
-
-                {{#if isMyProject}}
-                <form action="/project-item/{{project.id}}" method="get">
-                    <button type="submit" class="btn btn-dark mt-3 fs-4">+ Adicionar Item</button>
-                </form>
-                {{else}}
-                <form action="/review/{{project.id}}" method="get">
-                    <button type="submit" class="btn btn-dark mt-3 fs-4">+ Adicionar Avaliação</button>
-                </form>
-                {{/if}}
-
-
                 {{#each projectItems}}
+                
                 <li class="list-group-item d-flex justify-content-between border-0">
                     <form action="" method="post" class="accordion-item mt-3 border rounded w-100">
                         <button class="accordion-header accordion-button collapsed bg-dark rounded p-3 " type="button"
@@ -47,7 +47,6 @@
                                 <label class="d-flex align-items-center">Descrição</label>
                                 <textarea class="form-control" name="description">{{this.description}}</textarea>
                             </div>
-
                             <div class="accordion-footer d-flex justify-content-end p-2 bg-dark rounded-bottom mt-3">
                                 <input type="hidden" name="id" value="{{projectItem.id}}">
                                 <input type="hidden" name="ProjectId" value="{{projectItem.ProjectId}}">
@@ -76,8 +75,10 @@
                 {{/each}}
             </ul>
 
-            <ul class="mt-5">
-                <h2>Comentarios</h2>
+            <hr>
+
+            <ul class="list-group list-group-flush mt-5">
+                <h2 class="">Comentarios:</h2>
                 {{#each reviews}}
                 <li class="list-group-item d-flex justify-content-between mt-3">
 

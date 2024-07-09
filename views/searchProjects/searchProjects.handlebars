@@ -1,11 +1,5 @@
-<main class="container shadow">
-    <div>
-        {{#if search}}
-        <h1>Buscando por: {{search}}</h1>
-        {{else}}
-        <h1>Todos os projetos: </h1>
-        {{/if}}
-
+<main class="container min-vh-100 shadow">
+    <div class="pt-3 d-flex flex-column justify-content-center align-items-center">
         <form action="/searchProjects" method="get">
             <div class="input-group mb-3">
                 <input type="text" name="search" class="form-control" placeholder="Procurar"
@@ -15,12 +9,18 @@
                 </button>
             </div>
         </form>
+
+        {{#if search}}
+        <p class="fw-bold">Buscando por: {{search}}</p>
+        {{else}}
+        <p class="fw-bold">Todos os projetos: </p>
+        {{/if}}
     </div>
 
     <ul class="d-flex flex-wrap justify-content-center p-0">
         {{#each projects}}
 
-        <li class="list-group-item card p-0 my-3 w-100">
+        <li class="list-group-item card p-0 my-3 w-100 shadow">
 
             <div
                 class="card-header bg-dark text-light pb-0 d-flex justify-content-between align-items-center rounded-top ps-3 pe-3">
