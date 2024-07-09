@@ -19,14 +19,3 @@ main {
     background-size: cover;
     background-position: center;
 }
-
-/*messages*/
-.message {
-    padding: 0.5em;
-    background-color: tomato;
-    border: 1px solid red;
-    border-radius: 5px;
-    text-align: center;
-    margin: 0.5em auto;
-    max-width: 60%;
-}

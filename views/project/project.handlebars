@@ -24,7 +24,7 @@
             </form>
             {{/if}}
 
-            <ul class="list-group list-group-flush shadow">
+            <ul class="list-group list-group-flush">
                 {{#each projectItems}}
                 
                 <li class="list-group-item d-flex justify-content-between border-0">
@@ -50,7 +50,7 @@
                             <div class="accordion-footer d-flex justify-content-end p-2 bg-dark rounded-bottom mt-3">
                                 <input type="hidden" name="id" value="{{projectItem.id}}">
                                 <input type="hidden" name="ProjectId" value="{{projectItem.ProjectId}}">
-                                <button type="submit" class="btn btn-outline-success p-1 me-2">Salvar</button>
+                                <button type="submit" class="btn btn-outline-info p-1 me-2">Editar</button>
                             </div>
                         </div>
                     </form>
