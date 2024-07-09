@@ -25,43 +25,18 @@ function drawRegionsMap() {
 
     var options = {
         legend: 'none',
-        };
+    };
     var chart = new google.visualization.GeoChart(document.getElementById('globalMap'));
 
     chart.draw(data, options);
 }
 
-
-
-
-/*function statusInpt(oEvent) {
-    let listaProjetos = document.getElementById('listaProjetos');
-    let inputs = listaProjetos.querySelectorAll('input');
-    let selects = listaProjetos.querySelectorAll('select');
-    let btns = listaProjetos.querySelectorAll('button');
-
-    inputs.forEach(input => {
-        if (!oEvent.target.checked) {
-            input.removeAttribute('disabled');
-        } else {
-            input.setAttribute('disabled', 'true');
-        }
-    });
-    selects.forEach(select => {
-        if (!oEvent.target.checked) {
-            select.removeAttribute('disabled');
-        } else {
-            select.setAttribute('disabled', 'true');
-        }
-    });
-    btns.forEach(btn => {
-        if (!oEvent.target.checked) {
-            btn.removeAttribute('disabled');
-        } else {
-            btn.setAttribute('disabled', 'true');
-        }
-    });
-
-}
-*/
-
+document.addEventListener('DOMContentLoaded', function () {
+    var toastElement = document.getElementById('myToast');
+    if (toastElement) {
+        var toast = new bootstrap.Toast(toastElement, {
+            delay: 3000
+        });
+        toast.show();
+    }
+});

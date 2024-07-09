@@ -16,65 +16,54 @@
 
     <section class="border-top p-3">
 
-        <ol class="p-0" id="listaProjetos">
+        <ol class="p-0 d-flex justify-content-center row" id="listaProjetos">
             {{#each userProjects}}
-
-            <li class="list-group-item card p-0 my-3 w-100 shadow">
+           
+            <li class="col-12 col-md-6 col-lg-3 list-group p-0 m-2 card shadow">
                 <div
-                    class="card-header bg-dark text-light pb-0 d-flex justify-content-between align-items-center rounded-top ps-3 pe-3">
-                    <h3>
-                        <input class="form-control-plaintext text-light fw-bold d-flex align-items-center" type="text"
-                            value="{{this.destination}}" disabled>
-                    </h3>
+                    class="card-header bg-dark text-light d-flex justify-content-between align-items-center ps-3 pe-1 py-1">
+                    <h3 class="m-0">{{this.destination}} </h3>
                     <div class="d-flex align-items-center">
-                        <button type="button" class="btn btn-dark text-center">
-                            <a href="/project/update/{{this.id}}" class="text-decoration-none text-center">
-                                <i class="bi bi-pencil-square text-light"> Editar</i>
-                            </a>
-                        </button>
-
-                        <form action="/project/remove" method="post">
-                            <input type="hidden" name="id" value="{{this.id}}">
-                            <button type="submit" class="btn btn-dark text-center">
-                                <i class="bi bi-trash"> Deletar</i>
+                        <a href="/project/{{this.id}}" class="text-decoration-none text-dark ">
+                            <button class="btn btn-dark">
+                                <i class="bi bi-arrows-angle-expand text-light"></i>
                             </button>
-                        </form>
+                        </a>
                     </div>
                 </div>
-                <div class="card-body bg-light py-0 ps-0 rounded-bottom overflow-hidden">
-                    <a href="/project/{{this.id}}" class="text-decoration-none text-dark ">
-                        <div class="row ">
-                            <div class="col-3 projectImg border-end border-3">
+
+                <div class="card-body bg-light py-0 ps-0 overflow-hidden rounded-bottom">
+                    <div class="row ">
+                        <div class="col-6 projectImg border-end border-3"></div>
+                        <div class="col-6 p-3 pb-0">
+                            <div class="text-center border border-3 rounded p-1">
+                                <h4 class="fs-6 m-0">Status</h4>
+                                <p class="fs-5 m-0">{{this.status}}</p>
                             </div>
-                            <div class="col-6 p-3">
-                                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ad quas dolores esse
-                                    corporis
-                                    ab
-                                    tempora cum, repellat non ex ratione tenetur magnam? Nam, ducimus sint repudiandae
-                                    consectetur voluptas voluptates delectus.</p>
+                            <div class="text-center border border-3 rounded p-1 mt-1 ">
+                                <h4 class="fs-6 m-0">Tipo</h4>
+                                <p class="fs-5 m-0">{{this.exchangeType}}</p>
                             </div>
-                            <div class="col-3 p-3 pb-0">
-                                <div class="w-100">
-                                    <div class="text-center">
-                                        <label for="" class="form-label">Status</label>
-                                        <input type="text" class="form-control m-0" value="{{this.status}}" disabled>
-                                    </div>
-                                    <div class="text-center">
-                                        <label for="" class="form-label">Tipo</label>
-                                        <input type="text" class="form-control m-0" value="{{this.exchangeType}}"
-                                            disabled>
-                                    </div>
-                                    <div class="text-end p-1">
-                                        <i class="bi bi-arrows-angle-expand text-dark"> Expandir</i>
-                                    </div>
-                                </div>
+                            <div class="d-flex justify-content-center border-top border-bottom my-1">
+                                <a href="/project/update/{{this.id}}" class="text-decoration-none text-center">
+                                    <button type="button" class="btn btn-light p-1">
+                                        <i class="bi bi-pencil-square text-light text-dark"> Editar</i>
+                                    </button>
+                                </a>
+                                <form action="/project/remove" method="post">
+                                    <input type="hidden" name="id" value="{{this.id}}">
+                                    <button type="submit" class="btn btn-light p-1">
+                                        <i class="bi bi-trash" text-dark> Deletar</i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </li>
-
+            
             {{/each}}
         </ol>
+
     </section>
 </main>

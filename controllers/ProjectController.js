@@ -68,11 +68,11 @@ module.exports = class ProjectController {
     }
 
     static async createProject(req, res) {
-        const { destination, exchangeType, status } = req.body;
+        const { destination, exchangeType } = req.body;
 
         const newProject = {
             destination,
-            status,
+            status: 'progredindo',
             exchangeType,
             UserId: req.session.userid
         };

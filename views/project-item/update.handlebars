@@ -1,4 +1,4 @@
-<main class="container shadow">
+<main class="container shadow min-vh-100">
     <h1 class="text-center p-4">Editar item {{projectItem.name}}</h1>
     <form action="/project-item/edit" method="post" class="d-flex flex-column align-items-center">
         <input type="hidden" name="id" value="{{projectItem.id}}">
@@ -10,7 +10,8 @@
                     class="form-control-plaintext form-control mb-3 fs-3 text-center border-bottom rounded">
             </div>
             <div class="">
-                <input type="number" name="cost"  placeholder="{{projectItem.cost}}" value="{{projectItem.cost}}" step="0.01" min="0"
+                <input type="number" name="cost" placeholder="{{projectItem.cost}}" value="{{projectItem.cost}}"
+                    step="0.01" min="0"
                     class="form-control-plaintext form-control mb-3 text-center border-bottom rounded">
                 <textarea type="text" name="description" placeholder="{{projectItem.description}}"
                     class="form-control-plaintext form-control mb-3  text-center border-bottom rounded">{{projectItem.description}}</textarea>
