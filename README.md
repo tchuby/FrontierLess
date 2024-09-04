@@ -25,12 +25,14 @@ se campo onde preenche-se a senha.
 
 #4 - Abrir o teminal na pasta root do projeto;
 
-#5 - Dê o comando: npm start;
+#5 - Instalar as dependências: npm install;
 
-#6 - Observe os logs no teminal, se tudo der certo aparecerá no
+#6 - Iniciar aplicação: npm start;
+
+#7 - Observe os logs no teminal, se tudo der certo aparecerá no
 final a mensagem 'Aplicação rodando';
 
-#7 - abra o navegador no endereço http://localhost:3000/
+#8 - abra o navegador no endereço http://localhost:3000/
     #7.1 se a porta estiver ocupada altere no index.js a constante
     const port = 3000, para outro número e acesse o local
     host nesta porta;
