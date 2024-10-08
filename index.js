@@ -55,14 +55,14 @@ app.use(
         secret: "_5h56GqS<;O1",
         resave: false,
         saveUninitialized: false,
+        rolling: true,
         store: new FileStore({
             logFn: function() {},
             path: require('path').join(require('os').tmpdir(), 'sessions'),
         }),
         cookie: {
             secure: false,
-            maxAge: 360000,
-            expires: new Date(Date.now() + 360000),
+            maxAge: 3600000,
             httpOnly: true
         }
     })
