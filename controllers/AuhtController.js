@@ -16,7 +16,6 @@ module.exports = class AuthController {
         const user = await User.findOne({where: {email: email}})
         if(!user) {
             req.flash('message', 'Credenciais inválidas')
-            res.render('auth/login')
             
             return
         }
@@ -25,9 +24,8 @@ module.exports = class AuthController {
         const passwordMatch = bcrypt.compareSync(password, user.password)
 
         if(!passwordMatch) {
-            req.flash('message', 'Credenciais inválidas')
-            res.render('auth/login')
-            
+            res.send("Usuário não autenticado")
+
             return
         }
 
