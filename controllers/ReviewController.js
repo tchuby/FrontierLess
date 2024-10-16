@@ -4,13 +4,24 @@ const Review = require('../models/Review')
 
 module.exports = class ReviewController {
     
-    static showCreate (req, res) {
-        const userId = req.session.userId
-        const projectId = req.params.projectId
+    static async getReview (req, res) {
+        try{
+            const { id } = req.params;
+    
+            const review = await Review.findOne({ where : {id} });
+    
+            if(!review){
+                return res.status(404).send('Review not found.')
+            };
+    
+            req.session.save(()=> {
+                return res.status(200).send(projectItem);
+            });
 
-        req.session.save(() => {
-            res.render('review/create', { userId, projectId });
-        })
+        } catch(error){
+            console.error(`Erro ao buscar avaliação: ${error}`)
+            return res.status(500).send('Server error.')
+        }
     }
 
     static async create (req, res) {

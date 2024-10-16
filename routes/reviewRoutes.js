@@ -1,12 +1,12 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
+const { checkAuth } = require('../helpers/auth');
+const ReviewController = require('../controllers/ReviewController');
 
-const ReviewController = require('../controllers/ReviewController')
-
-router.get('/:projectId', ReviewController.showCreate)
-router.post('/', ReviewController.create)
-router.get('/edit/:id', ReviewController.showEdit)
-router.post('/edit', ReviewController.edit)
-router.post('/remove', ReviewController.remove)
+router.get('/:id', checkAuth, ReviewController.getReview);
+router.get('/reviews/:projectId', checkAuth, ReviewController.finAllByProject);
+router.post('/', checkAuth, ReviewController.createReview);
+router.delete('/:id', checkAuth, ReviewController.removeReview);
+router.put('/edit', checkAuth, ReviewController.updateReview);
 
 module.exports = router

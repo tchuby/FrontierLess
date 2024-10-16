@@ -94,7 +94,7 @@ app.use('/project', projectRoutes)
 app.use('/home', homeRoutes)
 app.use('/', authRoutes)
 
-app.get('/', HomeController.showHome)
+app.get('/', HomeController.getHome)
 
 //realizar conexão permanente
 conn
