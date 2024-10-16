@@ -56,6 +56,26 @@ module.exports = class ProjectController {
         }
     }
 
+    static async getAllProjects(req, res) {
+        let search = req.query.search ? req.query.search : ''
+        
+        try{
+            const projectsData = await Project.findAll({
+                include: User,
+                where: {
+                    destination: { [Op.like]: `%${search}%`}
+                }
+            })
+            
+            const projects = projectsData.map((result) => result.get({ plain: true }))
+    
+            return res.status(200).send({ projects, search })
+        } catch (error){
+            console.error('Erro ao buscar projetos: ', err);
+            return res.status(500).send('Erro interno do servidor');
+        }
+    }
+
     static async createProject(req, res) {
         const { destination, exchangeType } = req.body;
 
