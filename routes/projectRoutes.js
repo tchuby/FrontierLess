@@ -1,16 +1,13 @@
-const express = require('express')
-const router = express.Router()
-const checkAuth = require('../helpers/auth').checkAuth
+const express = require('express');
+const router = express.Router();
+const checkAuth = require('../helpers/auth').checkAuth;
 
-const ProjectController = require('../controllers/ProjectController')
+const ProjectController = require('../controllers/ProjectController');
 
-router.post('/add', checkAuth, ProjectController.createProject)
-router.get('/add', checkAuth, ProjectController.showAddProject)
-router.post('/remove', checkAuth, ProjectController.removeProject)
-router.get('/update/:id', checkAuth, ProjectController.showUpdateProject)
-router.post('/update', checkAuth, ProjectController.updateProject)
-router.get('/:id', checkAuth, ProjectController.showProject)
+// Rotas
+router.get('/:id', checkAuth, ProjectController.getProject); // Busca um projeto por ID
+router.post('/', checkAuth, ProjectController.createProject); // Cria um novo projeto
+router.delete('/:id', checkAuth, ProjectController.removeProject); // Remove um projeto por ID
+router.put('/:id', checkAuth, ProjectController.updateProject); // Atualiza um projeto por ID
 
-//router.get('/:id', checkAuth, ProjectController.getOneProject)
-
-module.exports = router
+module.exports = router;

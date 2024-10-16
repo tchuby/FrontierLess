@@ -2,8 +2,8 @@ const User = require('../models/User')
 
 module.exports = class HomeController {
 
-    static showHome(req, res) {
-        res.send("Olá mamãe")
+    static getHome(req, res) {
+        return res.status(200).send("Alô mamãe!")
     }
 
 }

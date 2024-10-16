@@ -4,8 +4,6 @@ const checkAuth = require('../helpers/auth').checkAuth
 
 const ProfileController = require('../controllers/ProfileController')
 
-router.get('/', checkAuth, ProfileController.showProfile)
-
-router.post('/addProject', checkAuth, ProfileController.createProject)
+router.get('/', checkAuth, ProfileController.getProfile)
 
 module.exports = router

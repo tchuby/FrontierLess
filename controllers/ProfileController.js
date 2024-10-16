@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 module.exports = class ProfileController {
 
-    static async showProfile(req, res) {
+    static async getProfile(req, res) {
         try {
             const userProfile = await User.findOne({ 
                 where: { id: req.session.userid },
@@ -22,28 +22,9 @@ module.exports = class ProfileController {
             // Retorna o perfil do usuário e os projetos em um objeto JSON
             return res.status(200).send({ userProfile, userProjects });
 
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            console.error(err);
             return res.status(500).send('Server Error');
-        }
-    }
-
-    static async createProject(req, res) {
-        try {
-            const project = {
-                destination: req.body.destination,
-                status: req.body.status,
-                exchangeType: req.body.exchangeType,
-                UserId: req.session.userid
-            };
-
-            await Project.create(project);
-
-            // Retornar o novo projeto criado com um status 201
-            return res.status(201).send('Projeto criado com sucesso');
-        } catch (error) {
-            console.error(error);
-            return res.status(500).send('Erro ao criar projeto');
         }
     }
 }
