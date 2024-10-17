@@ -1,9 +1,7 @@
 const express = require('express')
-const exphbs = require('express-handlebars')
 const conn = require('./db/connection') //conexão com banco
 const session = require('express-session')
 const FileStore = require('session-file-store')(session)
-const flash = require('express-flash') 
 
 //Models
 const User = require('./models/User')
@@ -12,13 +10,13 @@ const Review = require('./models/Review')
 const ProjectItem = require('./models/ProjectItem')
 
 //import routes
-const homeRoutes = require('./routes/homeRoutes')
 const authRoutes = require('./routes/authRoutes')
-const projectRoutes = require('./routes/projectRoutes')
+const homeRoutes = require('./routes/homeRoutes')
 const profileRoutes = require('./routes/profileRoutes')
-const searchProjectsRoutes = require('./routes/searchProjectsRoute')
 const projectItemRoutes = require('./routes/projectItemRoutes')
+const projectRoutes = require('./routes/projectRoutes')
 const reviewRoutes = require('./routes/reviewRoutes')
+const userRoutes = require('./routes/userRoutes')
 
 //import controller
 const HomeController = require('./controllers/HomeController')
@@ -28,14 +26,6 @@ const HomeController = require('./controllers/HomeController')
 //servidor
 const app = express()
 const port = 3000
-
-//handlebars
-const partialsHbs = exphbs.create({
-    partialsDir: ['views/partials']
-})
-
-app.engine('handlebars', partialsHbs.engine)
-app.set('view engine', 'handlebars')
 
 //public path: css e js
 app.use(express.static('public'))
@@ -68,9 +58,6 @@ app.use(
     })
 )
 
-// flash messages, mensagens de status do sistema
-app.use(flash())
-
 //Set session to res
 app.use((req, res, next) => {
     
@@ -86,9 +73,9 @@ app.use((req, res, next) => {
 })
 
 // -- ROTAS --
+app.use('/user', userRoutes)
 app.use('/review', reviewRoutes)
 app.use('/project-item', projectItemRoutes)
-app.use('/searchProjects', searchProjectsRoutes)
 app.use('/profile', profileRoutes)
 app.use('/project', projectRoutes)
 app.use('/home', homeRoutes)
