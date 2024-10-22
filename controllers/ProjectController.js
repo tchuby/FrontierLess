@@ -2,6 +2,7 @@ const Project = require('../models/Project');
 const ProjectItem = require('../models/ProjectItem');
 const User = require('../models/User');
 const Review = require('../models/Review');
+const { Op } = require('sequelize');
 
 module.exports = class ProjectController {
 
@@ -57,6 +58,7 @@ module.exports = class ProjectController {
     }
 
     static async getAllProjects(req, res) {
+        console.log("Buscando projetos");
         let search = req.query.search ? req.query.search : ''
         
         try{
@@ -71,7 +73,7 @@ module.exports = class ProjectController {
     
             return res.status(200).send({ projects, search })
         } catch (error){
-            console.error('Erro ao buscar projetos: ', err);
+            console.error('Erro ao buscar projetos: ', error);
             return res.status(500).send('Erro interno do servidor');
         }
     }
@@ -98,7 +100,7 @@ module.exports = class ProjectController {
     }
 
     static async removeProject(req, res) {
-        const id = req.body.id;
+        const id = req.params.id;
         const userId = req.session.userid;
 
         try {
@@ -113,7 +115,7 @@ module.exports = class ProjectController {
     }
 
     static async updateProject(req, res) {
-        const id = req.body.id;
+        const id = req.params.id;
 
         const updatedProject = {
             destination: req.body.destination,
