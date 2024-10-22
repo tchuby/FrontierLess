@@ -75,7 +75,7 @@ module.exports = class ProjectItemController {
 
     // Remove um ProjectItem
     static async removeProjectItem(req, res) {
-        const id = req.body.id;
+        const id = req.params.id;
         const userId = req.session.userid;
 
         try {
@@ -102,7 +102,7 @@ module.exports = class ProjectItemController {
 
     // Atualiza um ProjectItem
     static async updateProjectItem(req, res) {
-        const id = req.body.id;
+        const id = req.params.id;
         const userId = req.session.userid;
 
         const updatedProjectItem = {
