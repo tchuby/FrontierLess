@@ -4,7 +4,12 @@ const bcrypt = require('bcryptjs');
 module.exports = class AuthController {
 
     static async loginPost(req, res) {
+        console.log(req.body);
         const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).send('Email e senha são obrigatórios');
+        }
 
         // Encontrar usuário
         const user = await User.findOne({ where: { email: email } });
@@ -32,6 +37,4 @@ module.exports = class AuthController {
             return res.status(200).send('Logout realizado com sucesso');
         });
     }
-
-
 }
