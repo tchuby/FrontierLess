@@ -63,12 +63,12 @@ module.exports = class UserController{
     }
 
     static async removeUser(req, res) {
-        const { id } = req.body;
+        const id = req.params.id;
         const userId = req.session.userid;
     
         try {
             // Verifica se o usuário tem permissão para remover o próprio perfil
-            if (userId !== id) {
+            if (userId != id) {
                 return res.status(403).send('Você não tem permissão para remover este usuário.');
             }
     
@@ -85,13 +85,14 @@ module.exports = class UserController{
     }
 
     static async updateUser(req, res) {
-        const { id } = req.body;
+        const id  = req.params.id;
         const { name, email, birthdate } = req.body;
         const userId = req.session.userid;
     
         try {
+            console.log("userId: ",userId," - id: ",id);
             // Verifica se o usuário tem permissão para atualizar o próprio perfil
-            if (userId !== id) {
+            if (userId != id) {
                 return res.status(403).send('Você não tem permissão para atualizar este usuário.');
             }
     
