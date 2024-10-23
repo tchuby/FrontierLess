@@ -1,44 +1,10 @@
 const ProjectItem = require('../models/ProjectItem');
+const Project = require('../models/Project');
 
 module.exports = class ProjectItemController {
 
-    static showCreate(req, res) {
-        const projectId = req.params.projectId
-
-        req.session.save(() => {
-            res.render('project-item/create', { projectId });
-        });
-    }
-
-    // Cria um novo ProjectItem
-    static async createProjectItem(req, res) {
-        try {
-            const projectItem = req.body;
-            console.log(projectItem)
-
-            if (!projectItem.name || !projectItem.ProjectId) {
-                return res.status(400).send('Name and projectId are required');
-            }
-
-            const newProjectItem = await ProjectItem.create({
-                name: projectItem.name,
-                cost: projectItem.cost,
-                description: projectItem.description,
-                ProjectId: projectItem.ProjectId // associando com o ID do projeto
-            });
-
-            req.session.save(() => {
-                res.redirect(`/project/${projectItem.ProjectId}`);
-            });
-            
-        } catch (error) {
-            console.error(error);
-            res.status(500).send('Server Error');
-        }
-    }
-
     // Encontra um ProjectItem por ID
-    static async findOne(req, res) {
+    static async getProjectItem(req, res) {
         try {
             const { id } = req.params;
 
@@ -48,10 +14,13 @@ module.exports = class ProjectItemController {
                 return res.status(404).send('ProjectItem not found');
             }
 
-            res.status(200).json(projectItem);
+            req.session.save(() => {
+                return res.status(200).send(projectItem);
+            });
+
         } catch (error) {
-            console.error(error);
-            res.status(500).send('Server Error');
+            console.error('Erro ao buscar item do projeto: ', error);
+            return res.status(500).send('Server Error');
         }
     }
 
@@ -69,52 +38,72 @@ module.exports = class ProjectItemController {
                 return res.status(404).send('No ProjectItems found for the given project');
             }
 
-            res.status(200).json(projectItems);
+            req.session.save(() => {
+                return res.status(200).send(projectItems);
+            });
         } catch (error) {
             console.error(error);
-            res.status(500).send('Server Error');
+            return res.status(500).send('Server Error');
         }
     }
 
-    static async remove(req, res) {
-        const id = req.body.id;
-
+    // Cria um novo ProjectItem
+    static async createProjectItem(req, res) {
         try {
-            await ProjectItem.destroy({ where: { id: id } });
+            const projectItem = req.body;
+
+            if (!projectItem.name || !projectItem.ProjectId) {
+                return res.status(400).send('Name and projectId are required');
+            }
+
+            const newProjectItem = await ProjectItem.create({
+                name: projectItem.name,
+                cost: projectItem.cost,
+                description: projectItem.description,
+                ProjectId: projectItem.ProjectId // associando com o ID do projeto
+            });
 
             req.session.save(() => {
-                res.redirect(`/project/${req.body.projectId}`);
+                return res.status(200).send({ message: 'Item criado com sucesso.', newProjectItem });
             });
-        } catch (err) {
-            console.log(`Erro ao excluir o projeto: ${err}`);
-            res.status(500).send('Erro interno do servidor');
+
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send('Erro ao criar item');
         }
     }
 
-    static async showEdit(req, res){
+    // Remove um ProjectItem
+    static async removeProjectItem(req, res) {
         const id = req.params.id;
+        const userId = req.session.userid;
 
         try {
-            const projectItem = await ProjectItem.findOne({
-                where: { id: id },
-                raw: true
-            });
-
-            if (projectItem) {
-                req.session.save(() => {
-                    res.render('project-item/update', { projectItem });
-                });
-            } else {
-                res.status(404).send('Item não encontrado');
+            // Verifica se o ProjectItem pertence a um projeto do usuário
+            const projectItem = await ProjectItem.findOne({ where: { id }, raw: true });
+            if (!projectItem) {
+                return res.status(404).send('Item não encontrado');
             }
-        } catch (err) {
-            console.error('Erro ao buscar projeto:', err);
-            res.status(500).send('Erro interno do servidor');
+
+            const project = await Project.findOne({ where: { id: projectItem.ProjectId, UserId: userId }, raw: true });
+            if (!project) {
+                return res.status(403).send('Você não tem permissão para remover este item');
+            }
+
+            await ProjectItem.destroy({ where: { id } });
+            req.session.save(() => {
+                return res.status(200).send({ message: 'ProjectItem excluído com sucesso.' });
+            });
+        } catch (error) {
+            console.log(`Erro ao excluir o item do projeto: ${error}`);
+            return res.status(500).send('Erro interno do servidor');
         }
     }
 
-    static async edit(req, res){
-        const id = req.body.id;
+    // Atualiza um ProjectItem
+    static async updateProjectItem(req, res) {
+        const id = req.params.id;
+        const userId = req.session.userid;
 
         const updatedProjectItem = {
             name: req.body.name,
@@ -123,13 +112,26 @@ module.exports = class ProjectItemController {
         };
 
         try {
-            await ProjectItem.update(updatedProjectItem, { where: { id: id } });
+            // Verifica se o ProjectItem existe
+            const projectItem = await ProjectItem.findOne({ where: { id }, raw: true });
+            if (!projectItem) {
+                return res.status(404).send('Item não encontrado');
+            }
+
+            // Verifica se o item pertence a um projeto do usuário
+            const project = await Project.findOne({ where: { id: projectItem.ProjectId, UserId: userId }, raw: true });
+            if (!project) {
+                return res.status(403).send('Você não tem permissão para atualizar este item');
+            }
+
+            // Atualiza o item do projeto
+            await ProjectItem.update(updatedProjectItem, { where: { id } });
             req.session.save(() => {
-                res.redirect(`/project/${req.body.ProjectId}`);
+                return res.status(200).send({ message: 'Item atualizado com sucesso.', updatedProjectItem });
             });
-        } catch (err) {
-            console.log('Erro ao atualizar item do projeto: ' + err);
-            res.status(500).send('Erro interno do servidor');
+        } catch (error) {
+            console.log('Erro ao atualizar item do projeto: ' + error);
+            return res.status(500).send('Erro interno do servidor');
         }
     }
-}
+};
