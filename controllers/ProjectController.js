@@ -2,7 +2,7 @@ const Project = require('../models/Project');
 const ProjectItem = require('../models/ProjectItem');
 const User = require('../models/User');
 const Review = require('../models/Review');
-const { Op } = require('sequelize');
+const { Op, fn, col, literal } = require('sequelize');
 
 module.exports = class ProjectController {
 
@@ -59,20 +59,53 @@ module.exports = class ProjectController {
 
     static async getAllProjects(req, res) {
         console.log("Buscando projetos");
-        let search = req.query.search ? req.query.search : ''
         
-        try{
+        let search = req.query.search ? req.query.search : '';
+        let status = req.query.status ? req.query.status : '';
+        let exchangeType = req.query.exchangeType ? req.query.exchangeType : '';
+        let minBudget = req.query.minBudget ? parseFloat(req.query.minBudget) : 0;
+        let maxBudget = req.query.maxBudget ? parseFloat(req.query.maxBudget) : Number.MAX_SAFE_INTEGER;
+        let orderField = req.query.orderField ? req.query.orderField : 'createdAt'; // Campo de ordenação
+        let orderDirection = req.query.orderDirection ? req.query.orderDirection : 'ASC'; // Direção de ordenação
+
+        try {
             const projectsData = await Project.findAll({
-                include: User,
+                attributes: [
+                    'id', 
+                    'destination', 
+                    'status', 
+                    'exchangeType', 
+                    'createdAt', 
+                    'updatedAt',
+                    'UserId',
+                    [fn('SUM', col('ProjectItems.cost')), 'budget'] // Soma do orçamento
+                ],
+                include: [
+                    {
+                        model: User,
+                        attributes: ['id', 'name', 'email']
+                    },
+                    {
+                        model: ProjectItem,
+                        attributes: []
+                    }
+                ],
                 where: {
-                    destination: { [Op.like]: `%${search}%`}
-                }
-            })
-            
-            const projects = projectsData.map((result) => result.get({ plain: true }))
+                    destination: { [Op.like]: `%${search}%` },
+                    status: { [Op.like]: `%${status}%` },
+                    exchangeType: { [Op.like]: `%${exchangeType}%` },
+                    [Op.and]: [
+                        literal(`(SELECT SUM(ProjectItems.cost) FROM ProjectItems WHERE ProjectItems.ProjectId = Project.id) BETWEEN ${minBudget} AND ${maxBudget}`)
+                    ]
+                },
+                group: ['Project.id', 'User.id'],
+                order: [[literal(`\`${orderField}\``), orderDirection]] // Ordenar pelo campo definido
+            });
     
-            return res.status(200).send({ projects, search })
-        } catch (error){
+            const projects = projectsData.map(result => result.get({ plain: true }));
+    
+            return res.status(200).send({ projects, search });
+        } catch (error) {
             console.error('Erro ao buscar projetos: ', error);
             return res.status(500).send('Erro interno do servidor');
         }
