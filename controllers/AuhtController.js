@@ -27,7 +27,7 @@ module.exports = class AuthController {
         req.session.userid = user.id;
 
         req.session.save(() => {
-            return res.status(200).send('Login bem-sucedido');
+            return res.status(200).send({ message: 'Login bem-sucedido', user });
         });
     }
 

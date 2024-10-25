@@ -2,6 +2,7 @@ const express = require('express')
 const conn = require('./db/connection') //conexão com banco
 const session = require('express-session')
 const FileStore = require('session-file-store')(session)
+const cors = require('cors');
 
 //Models
 const User = require('./models/User')
@@ -27,6 +28,11 @@ const HomeController = require('./controllers/HomeController')
 const app = express()
 const port = 3000
 
+app.use(cors({
+    origin: 'http://localhost:3001',
+    credentials: true
+}));
+
 //public path: css e js
 app.use(express.static('public'))
 
@@ -47,7 +53,7 @@ app.use(
         saveUninitialized: false,
         rolling: true,
         store: new FileStore({
-            logFn: function() {},
+            logFn: function () { },
             path: require('path').join(require('os').tmpdir(), 'sessions'),
         }),
         cookie: {
@@ -60,9 +66,9 @@ app.use(
 
 //Set session to res
 app.use((req, res, next) => {
-    
+
     //usuario logado 
-    if(req.session.userid) {
+    if (req.session.userid) {
         //atribuir os dados do usuario da requisição para a resposta
         res.locals.session = req.session
     }
@@ -88,8 +94,9 @@ conn
     .sync()
     //.sync({ force: true })
     .then(() => {
-    // rodar aplicação
-    app.listen(port, () => {
-        console.log('Aplicação rodando')
-    })})
+        // rodar aplicação
+        app.listen(port, () => {
+            console.log('Aplicação rodando')
+        })
+    })
     .catch((err) => console.log(err))
