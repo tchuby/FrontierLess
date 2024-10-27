@@ -60,7 +60,7 @@ module.exports = class ProjectController {
     static async getAllProjects(req, res) {
         console.log("Buscando projetos");
         
-        let search = req.query.search ? req.query.search : '';
+        let destination = req.query.destination ? req.query.destination : '';
         let status = req.query.status ? req.query.status : '';
         let exchangeType = req.query.exchangeType ? req.query.exchangeType : '';
         let minBudget = req.query.minBudget ? parseFloat(req.query.minBudget) : 0;
@@ -91,11 +91,11 @@ module.exports = class ProjectController {
                     }
                 ],
                 where: {
-                    destination: { [Op.like]: `%${search}%` },
+                    destination: { [Op.like]: `%${destination}%` },
                     status: { [Op.like]: `%${status}%` },
                     exchangeType: { [Op.like]: `%${exchangeType}%` },
                     [Op.and]: [
-                        literal(`(SELECT SUM(ProjectItems.cost) FROM ProjectItems WHERE ProjectItems.ProjectId = Project.id) BETWEEN ${minBudget} AND ${maxBudget}`)
+                        literal(`IFNULL((SELECT SUM(ProjectItems.cost) FROM ProjectItems WHERE ProjectItems.ProjectId = Project.id), 0) BETWEEN ${minBudget} AND ${maxBudget}`)
                     ]
                 },
                 group: ['Project.id', 'User.id'],
@@ -104,7 +104,7 @@ module.exports = class ProjectController {
     
             const projects = projectsData.map(result => result.get({ plain: true }));
     
-            return res.status(200).send({ projects, search });
+            return res.status(200).send({ projects });
         } catch (error) {
             console.error('Erro ao buscar projetos: ', error);
             return res.status(500).send('Erro interno do servidor');
@@ -115,9 +115,9 @@ module.exports = class ProjectController {
         const { destination, exchangeType } = req.body;
 
         const newProject = {
-            destination: req.body.destination,
+            destination: destination,
             status: 'progredindo',
-            exchangeType: req.body.exchangeType,
+            exchangeType: exchangeType,
             UserId: req.session.userid
         };
 
