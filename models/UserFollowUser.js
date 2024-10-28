@@ -23,8 +23,4 @@ const UserFollowUser = db.define('UserFollowUser', {
     timestamps: true
 });
 
-// Configurar as relações
-User.belongsToMany(User, { as: 'Followers', through: UserFollowUser, foreignKey: 'followedId' });
-User.belongsToMany(User, { as: 'Following', through: UserFollowUser, foreignKey: 'followerId' });
-
 module.exports = UserFollowUser;

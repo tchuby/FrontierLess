@@ -14,5 +14,6 @@ router.put('/:id', checkAuth, ProjectController.updateProject); // Atualiza um p
 router.post('/follow', checkAuth, ProjectController.followProject);
 router.delete('/unfollow/:id', checkAuth, ProjectController.unfollowProject);
 router.get('/followers/:projectId', checkAuth, ProjectController.getProjectFollowers);//Lista usuários que seguem um projeto
+router.get('/followedprojects/:userId', checkAuth, ProjectController.getFollowedProjects)//Lista projetos seguido por um usuário
 
 module.exports = router;

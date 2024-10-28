@@ -24,9 +24,4 @@ const UserFollowProject = db.define('UserFollowProject', {
     timestamps: true
 });
 
-// Configurar as relações
-// Configurar as relações
-User.belongsToMany(Project, { as: 'FollowedProjects', through: UserFollowProject, foreignKey: 'userId' });
-Project.belongsToMany(User, { as: 'Followers', through: UserFollowProject, foreignKey: 'projectId' });
-
 module.exports = UserFollowProject;

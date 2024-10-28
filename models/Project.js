@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const db = require('../db/connection');
 const User = require('./User');
+const UserFollowProject = require('./UserFollowProject')
 
 const Project = db.define('Project', {
     destination: {
@@ -22,5 +23,8 @@ const Project = db.define('Project', {
 
 Project.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 User.hasMany(Project, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
+
+User.belongsToMany(Project, { as: 'FollowedProjects', through: UserFollowProject, foreignKey: 'userId' });
+Project.belongsToMany(User, { as: 'Followers', through: UserFollowProject, foreignKey: 'projectId' });
 
 module.exports = Project;

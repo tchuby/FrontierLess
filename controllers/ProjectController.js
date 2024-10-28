@@ -221,7 +221,6 @@ module.exports = class ProjectController {
           .status(200)
           .send({ message: "Agora você não está mais seguindo este projeto." });
       });
-      
     } catch (error) {
       console.error("Erro ao abandonar o projeto: ", error);
       return res.status(500).send("Erro interno do servidor");
@@ -233,20 +232,52 @@ module.exports = class ProjectController {
     const projectId = req.params.projectId;
 
     try {
-      const usersData = await UserFollowProject.findAll({
-        where: { projectId },
+      const project = await Project.findByPk(projectId, {
         include: {
           model: User,
-          as: "User", // 'User' deve corresponder ao alias definido na associação
+          as: "Followers", // Usa o alias correto
           attributes: ["id", "name", "email"],
         },
       });
 
-      const followers = usersData.map((result) => result.get({ plain: true }));
+      if (!project) {
+        return res.status(404).send("Projeto não encontrado");
+      }
+
+      const followers = project.Followers.map((user) =>
+        user.get({ plain: true })
+      );
 
       return res.status(200).send(followers);
     } catch (error) {
       console.error("Erro ao obter seguidores do projeto: ", error);
+      return res.status(500).send("Erro interno do servidor");
+    }
+  }
+
+  // Listar projetos seguidos pelo usuário
+  static async getFollowedProjects(req, res) {
+    const userId = req.params.userId;
+
+    try {
+      const user = await User.findByPk(userId, {
+        include: [
+          {
+            model: Project,
+            as: "FollowedProjects", // Usa o alias definido na associação
+            attributes: ["id", "destination", "status", "exchangeType"],
+            through: { attributes: [] }, // Ignora os atributos da tabela de junção
+          },
+        ],
+      });
+
+      if (!user) {
+        return res.status(404).send("Usuário não encontrado");
+      }
+
+      return res.status(200).send(user.FollowedProjects);
+    } catch (error) {
+      console.error("Erro ao obter projetos seguidos pelo usuário: ", error);
       return res.status(500).send("Erro interno do servidor");
     }
   }
