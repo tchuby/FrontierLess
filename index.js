@@ -85,7 +85,7 @@ app.use('/project-item', projectItemRoutes)
 app.use('/profile', profileRoutes)
 app.use('/project', projectRoutes)
 app.use('/home', homeRoutes)
-app.use('/', authRoutes)
+app.use('/auth', authRoutes)
 
 app.get('/', HomeController.getHome)
 
