@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const UserFollowUser = require("../models/UserFollowUser")
 const bcrypt = require("bcryptjs");
 
 module.exports = class UserController {
@@ -150,7 +151,7 @@ module.exports = class UserController {
   // Seguir um usuário
   static async followUser(req, res) {
     const followerId = req.session.userid; // ID do usuário que está seguindo
-    const followedId = req.body.id; // ID do usuário a ser seguido
+    const followedId = req.body.followedId; // ID do usuário a ser seguido
 
     try {
       await UserFollowUser.create({ followerId, followedId });
@@ -162,6 +163,25 @@ module.exports = class UserController {
       });
     } catch (error) {
       console.error("Erro ao seguir o usuário: ", error);
+      return res.status(500).send("Erro interno do servidor");
+    }
+  }
+
+  static async unfollowUser(req, res){
+    const followerId = req.session.userid; // ID do usuário que está seguindo
+    const followedId = req.params.followedId; // ID do usuário a ser seguido
+
+    try {
+      await UserFollowUser.destroy({ where: { followerId, followedId } });
+
+      req.session.save(() => {
+        return res
+          .status(200)
+          .send({ message: "Agora você não está mais seguindo este usuário." });
+      });
+
+    } catch (error) {
+      console.error("Erro ao abandonar o usuário: ", error);
       return res.status(500).send("Erro interno do servidor");
     }
   }

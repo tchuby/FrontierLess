@@ -13,6 +13,6 @@ router.delete('/:id', checkAuth, ProjectController.removeProject); // Remove um 
 router.put('/:id', checkAuth, ProjectController.updateProject); // Atualiza um projeto por ID
 router.post('/follow', checkAuth, ProjectController.followProject);
 router.delete('/unfollow/:id', checkAuth, ProjectController.unfollowProject);
-router.get('/followers/:projectId', checkAuth, ProjectController.getProjectFollowers);
+router.get('/followers/:projectId', checkAuth, ProjectController.getProjectFollowers);//Lista usuários que seguem um projeto
 
 module.exports = router;

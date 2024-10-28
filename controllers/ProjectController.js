@@ -221,6 +221,7 @@ module.exports = class ProjectController {
           .status(200)
           .send({ message: "Agora você não está mais seguindo este projeto." });
       });
+      
     } catch (error) {
       console.error("Erro ao abandonar o projeto: ", error);
       return res.status(500).send("Erro interno do servidor");
