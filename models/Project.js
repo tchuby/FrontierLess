@@ -21,6 +21,12 @@ const Project = db.define('Project', {
     }
 });
 
+// Hook para notificação após atualização
+Project.addHook('afterUpdate', async (project, options) => {
+    const updateDetails = `${project.destination}`;
+    await notifyProjectFollowers(project.id, updateDetails);
+});
+
 Project.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 User.hasMany(Project, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 

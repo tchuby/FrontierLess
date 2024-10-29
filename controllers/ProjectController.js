@@ -3,9 +3,12 @@ const ProjectItem = require("../models/ProjectItem");
 const User = require("../models/User");
 const Review = require("../models/Review");
 const UserFollowProject = require("../models/UserFollowProject");
+const Notification = require('../models/Notification');
+
 const { Op, fn, col, literal } = require("sequelize");
 
 module.exports = class ProjectController {
+  
   static async getProject(req, res) {
     const id = req.params.id;
 
@@ -281,4 +284,29 @@ module.exports = class ProjectController {
       return res.status(500).send("Erro interno do servidor");
     }
   }
+
+  // Método para notificar os seguidores
+  static async notifyProjectFollowers(projectId, updateDetails) {
+    try {
+      const followers = await UserFollowProject.findAll({
+        where: { projectId },
+        include: [{ model: User, attributes: ["id", "email"] }],
+      });
+
+      // Criar uma mensagem de notificação
+      const message = `O projeto ${updateDetails} de ${followers.email} foi atualizado.`;
+
+      // Gerar notificações para cada seguidor
+      const notifications = followers.map((follower) => ({
+        message,
+        userId: follower.userId,
+        projectId,
+      }));
+
+      await Notification.bulkCreate(notifications);
+    } catch (error) {
+      console.error("Erro ao notificar seguidores do projeto: ", error);
+    }
+  }
+
 };
