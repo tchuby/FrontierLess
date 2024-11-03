@@ -4,11 +4,13 @@ const session = require('express-session')
 const FileStore = require('session-file-store')(session)
 const cors = require('cors');
 
-//Models
+// Models
 const User = require('./models/User')
 const Project = require('./models/Project')
 const Review = require('./models/Review')
 const ProjectItem = require('./models/ProjectItem')
+const UserFollowProject = require('./models/UserFollowProject')
+const UserFollowUser = require('./models/UserFollowUser')
 
 //import routes
 const authRoutes = require('./routes/authRoutes')
@@ -18,6 +20,7 @@ const projectItemRoutes = require('./routes/projectItemRoutes')
 const projectRoutes = require('./routes/projectRoutes')
 const reviewRoutes = require('./routes/reviewRoutes')
 const userRoutes = require('./routes/userRoutes')
+const notificationRouter = require('./routes/notificationRoutes')
 
 //import controller
 const HomeController = require('./controllers/HomeController')
@@ -84,8 +87,9 @@ app.use('/review', reviewRoutes)
 app.use('/project-item', projectItemRoutes)
 app.use('/profile', profileRoutes)
 app.use('/project', projectRoutes)
+app.use('/notification', notificationRouter)
 app.use('/home', homeRoutes)
-app.use('/', authRoutes)
+app.use('/auth', authRoutes)
 
 app.get('/', HomeController.getHome)
 
