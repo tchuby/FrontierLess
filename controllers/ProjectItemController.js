@@ -1,5 +1,6 @@
 const ProjectItem = require('../models/ProjectItem');
 const Project = require('../models/Project');
+const NotificationController = require('../controllers/NotificationController')
 
 module.exports = class ProjectItemController {
 
@@ -56,17 +57,21 @@ module.exports = class ProjectItemController {
                 return res.status(400).send('Name and projectId are required');
             }
 
+            const project = Project.findByPk(req.body.ProjectId)
+
             const newProjectItem = await ProjectItem.create({
                 name: projectItem.name,
                 cost: projectItem.cost,
                 description: projectItem.description,
-                ProjectId: projectItem.ProjectId // associando com o ID do projeto
+                ProjectId: projectItem.ProjectId
             });
+
+            // Notificar seguidores do projeto após criação bem-sucedida
+            await NotificationController.notifyProjectFollowers(projectItem.ProjectId, `Um novo item foi adicionado ao projeto.`);
 
             req.session.save(() => {
                 return res.status(200).send({ message: 'Item criado com sucesso.', newProjectItem });
             });
-
         } catch (error) {
             console.error(error);
             return res.status(500).send('Erro ao criar item');
@@ -90,6 +95,9 @@ module.exports = class ProjectItemController {
                 return res.status(403).send('Você não tem permissão para remover este item');
             }
 
+            // Notificar seguidores do projeto após remoção bem-sucedida
+            await NotificationController.notifyProjectFollowers(projectItem.ProjectId, `Um item foi removido do projeto ${project.destination}`);
+
             await ProjectItem.destroy({ where: { id } });
             req.session.save(() => {
                 return res.status(200).send({ message: 'ProjectItem excluído com sucesso.' });
@@ -112,20 +120,17 @@ module.exports = class ProjectItemController {
         };
 
         try {
-            // Verifica se o ProjectItem existe
             const projectItem = await ProjectItem.findOne({ where: { id }, raw: true });
-            if (!projectItem) {
-                return res.status(404).send('Item não encontrado');
-            }
+            if (!projectItem) return res.status(404).send('Item não encontrado');
 
-            // Verifica se o item pertence a um projeto do usuário
             const project = await Project.findOne({ where: { id: projectItem.ProjectId, UserId: userId }, raw: true });
-            if (!project) {
-                return res.status(403).send('Você não tem permissão para atualizar este item');
-            }
+            if (!project) return res.status(403).send('Você não tem permissão para atualizar este item');
 
-            // Atualiza o item do projeto
             await ProjectItem.update(updatedProjectItem, { where: { id } });
+
+            // Notificar seguidores do projeto após atualização bem-sucedida
+            await NotificationController.notifyProjectFollowers(projectItem.ProjectId, `Um item foi atualizado no projeto no projeto ${project.destination}`);
+
             req.session.save(() => {
                 return res.status(200).send({ message: 'Item atualizado com sucesso.', updatedProjectItem });
             });

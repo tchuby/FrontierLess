@@ -21,7 +21,19 @@ const User = db.define('User', {
     }
 });
 
-User.belongsToMany(User, { as: 'Followers', through: UserFollowUser, foreignKey: 'followedId' });
-User.belongsToMany(User, { as: 'Following', through: UserFollowUser, foreignKey: 'followerId' });
+User.belongsToMany(User, {
+    as: 'Followers', 
+    through: UserFollowUser, 
+    foreignKey: 'followedId',
+    otherKey: 'followerId'
+});
+
+User.belongsToMany(User, {
+    as: 'Following', 
+    through: UserFollowUser, 
+    foreignKey: 'followerId',
+    otherKey: 'followedId'
+});
+
 
 module.exports = User;

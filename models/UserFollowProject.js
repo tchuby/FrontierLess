@@ -4,6 +4,12 @@ const User = require('../models/User')
 const Project = require('../models/Project')
 
 const UserFollowProject = db.define('UserFollowProject', {
+    id:{
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
+    },
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,

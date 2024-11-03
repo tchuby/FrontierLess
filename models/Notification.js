@@ -10,20 +10,6 @@ const Notification = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    userId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: User,
-        key: "id",
-      },
-    },
-    projectId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: Project,
-        key: "id",
-      },
-    },
     read: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
@@ -34,7 +20,10 @@ const Notification = db.define(
   }
 );
 
-User.hasMany(Notification, { foreignKey: "userId" });
-Project.hasMany(Notification, { foreignKey: "projectId" });
+Notification.belongsTo(User, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
+User.hasMany(Notification, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
+
+Notification.belongsTo(Project, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
+Project.hasMany(Notification, { foreignKey: { allowNull: false }, onDelete: 'CASCADE' });
 
 module.exports = Notification;

@@ -4,7 +4,7 @@ const checkAuth = require('../helpers/auth').checkAuth;
 
 const NotificationController = require('../controllers/NotificationController');
 
-router.get('/notifications', checkAuth, NotificationController.getUserNotifications);
-router.patch('/notifications/:notificationId/read', checkAuth, NotificationController.markAsRead);
+router.get('/', checkAuth, NotificationController.getUserNotifications);
+router.patch('/:notificationId/read', checkAuth, NotificationController.markAsRead);
 
 module.exports = router;

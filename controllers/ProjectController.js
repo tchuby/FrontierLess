@@ -3,7 +3,7 @@ const ProjectItem = require("../models/ProjectItem");
 const User = require("../models/User");
 const Review = require("../models/Review");
 const UserFollowProject = require("../models/UserFollowProject");
-const Notification = require('../models/Notification');
+const NotificationController = require('../controllers/NotificationController')
 
 const { Op, fn, col, literal } = require("sequelize");
 
@@ -129,6 +129,7 @@ module.exports = class ProjectController {
 
   static async createProject(req, res) {
     const { destination, exchangeType } = req.body;
+    let user = User.findByPk(req.session.userid)
 
     const newProject = {
       destination: destination,
@@ -140,11 +141,15 @@ module.exports = class ProjectController {
     try {
       await Project.create(newProject);
 
+      await NotificationController.notifyUserFollowersOnProjectUpdate(user.id, `Um novo projeto foi criado por ${user.name}`);
+
       req.session.save(() => {
         return res
           .status(200)
           .send({ message: "Projeto criado com sucesso.", newProject });
       });
+
+
     } catch (err) {
       console.error(err);
       return res.status(500).send("Erro ao criar projeto");
@@ -170,6 +175,10 @@ module.exports = class ProjectController {
 
   static async updateProject(req, res) {
     const id = req.params.id;
+    const user = User.findByPk(req.session.userid)
+
+    console.log(req.params)
+    console.log(req.body)
 
     const updatedProject = {
       destination: req.body.destination,
@@ -179,8 +188,11 @@ module.exports = class ProjectController {
 
     try {
       await Project.update(updatedProject, {
-        where: { id: id, UserId: req.session.userid },
+        where: { id, UserId: req.session.userid },
       });
+
+      await NotificationController.notifyUserFollowersOnProjectUpdate(user.id, id, `Um novo projeto foi criado por ${user.name}`);
+      await NotificationController.notifyProjectFollowers(id, `O projeto ${updatedProject.destination} foi atualizado de ${user.name}`);
 
       req.session.save(() => {
         return res
@@ -282,30 +294,6 @@ module.exports = class ProjectController {
     } catch (error) {
       console.error("Erro ao obter projetos seguidos pelo usuário: ", error);
       return res.status(500).send("Erro interno do servidor");
-    }
-  }
-
-  // Método para notificar os seguidores
-  static async notifyProjectFollowers(projectId, updateDetails) {
-    try {
-      const followers = await UserFollowProject.findAll({
-        where: { projectId },
-        include: [{ model: User, attributes: ["id", "email"] }],
-      });
-
-      // Criar uma mensagem de notificação
-      const message = `O projeto ${updateDetails} de ${followers.email} foi atualizado.`;
-
-      // Gerar notificações para cada seguidor
-      const notifications = followers.map((follower) => ({
-        message,
-        userId: follower.userId,
-        projectId,
-      }));
-
-      await Notification.bulkCreate(notifications);
-    } catch (error) {
-      console.error("Erro ao notificar seguidores do projeto: ", error);
     }
   }
 
