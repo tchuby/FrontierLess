@@ -96,7 +96,7 @@ module.exports = class ProjectItemController {
             }
 
             // Notificar seguidores do projeto após remoção bem-sucedida
-            await NotificationController.notifyProjectFollowers(projectItem.ProjectId, `Um item foi removido do projeto ${project.destination}`);
+            await NotificationController.notifyProjectFollowers(projectItem.ProjectId, `Um item foi removido do projeto.`);
 
             await ProjectItem.destroy({ where: { id } });
             req.session.save(() => {
@@ -129,7 +129,7 @@ module.exports = class ProjectItemController {
             await ProjectItem.update(updatedProjectItem, { where: { id } });
 
             // Notificar seguidores do projeto após atualização bem-sucedida
-            await NotificationController.notifyProjectFollowers(projectItem.ProjectId, `Um item foi atualizado no projeto no projeto ${project.destination}`);
+            await NotificationController.notifyProjectFollowers(projectItem.ProjectId, `Um item foi atualizado no projeto no projeto.`);
 
             req.session.save(() => {
                 return res.status(200).send({ message: 'Item atualizado com sucesso.', updatedProjectItem });

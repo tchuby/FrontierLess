@@ -41,7 +41,7 @@ module.exports = class NotificationController {
   }
 
   // Método para notificar os seguidores do usuário quando ele atualizar seus projetos
-  static async notifyUserFollowersOnProjectUpdate(userId, projectId) {
+  static async notifyUserFollowersOnProjectUpdate(userId, projectId, details) {
     try {
       // Obtém o usuário que fez a atualização
       const user = await User.findByPk(userId);
@@ -60,7 +60,7 @@ module.exports = class NotificationController {
       });
 
       // Cria uma mensagem de notificação
-      const message = `O usuário ${user.name} atualizou o projetos para ${project.destination}.`;
+      const message = `O usuário ${user.name} ${details} projeto para ${project.destination}.`;
 
       // Gera notificações para cada seguidor do usuário
       const notifications = followers.map((follower) => ({
@@ -77,7 +77,7 @@ module.exports = class NotificationController {
   }
 
   static async getUserNotifications(req, res) {
-    const userId = req.user.id;
+    const userId = req.session.userid;
 
     try {
       const notifications = await Notification.findAll({

@@ -141,7 +141,7 @@ module.exports = class ProjectController {
     try {
       await Project.create(newProject);
 
-      await NotificationController.notifyUserFollowersOnProjectUpdate(user.id, `Um novo projeto foi criado por ${user.name}`);
+      await NotificationController.notifyUserFollowersOnProjectUpdate(user.id, newProject.id, 'criou um ');
 
       req.session.save(() => {
         return res
@@ -191,8 +191,8 @@ module.exports = class ProjectController {
         where: { id, UserId: req.session.userid },
       });
 
-      await NotificationController.notifyUserFollowersOnProjectUpdate(user.id, id, `Um novo projeto foi criado por ${user.name}`);
-      await NotificationController.notifyProjectFollowers(id, `O projeto ${updatedProject.destination} foi atualizado de ${user.name}`);
+      await NotificationController.notifyUserFollowersOnProjectUpdate(user.id, id, `atualizou o`);
+      await NotificationController.notifyProjectFollowers(id);
 
       req.session.save(() => {
         return res
