@@ -7,32 +7,21 @@ na máquina;
 
 Como iniciar a aplicação localmente:
 
-#1 - Criar um banco de dados MySql com o nome de: frontierless
+#1 - Substituir no arquivo db/connection.js o conteúdo pelo do
+frontierless_db4free.txt;
 
-#2 - No arquivo db/connection.js conferir se as credenciais do
-banco conferem:
+#2 - Abrir a pasta do repo no VS Code;
 
-const sequelize = new Sequelize('frontierless', 'root', '****', {
-    host: 'localhost',
-    dialect: 'mysql'
-})
+#3 - Abrir o teminal na pasta root do projeto;
 
-o terceiro parâmetro, '****' é a senha de acesso ao banco local, por 
-padrão é criada vazia, '', mas se tiver colocado senha é nes-
-se campo onde preenche-se a senha.
+#4 - Instalar as dependências: npm install;
 
-#3 - Abrir a pasta do repo no VS Code;
+#5 - Iniciar aplicação: npm start;
 
-#4 - Abrir o teminal na pasta root do projeto;
-
-#5 - Instalar as dependências: npm install;
-
-#6 - Iniciar aplicação: npm start;
-
-#7 - Observe os logs no teminal, se tudo der certo aparecerá no
+#6 - Observe os logs no teminal, se tudo der certo aparecerá no
 final a mensagem 'Aplicação rodando';
 
-#8 - abra o navegador no endereço http://localhost:3000/
+#7 - abra o navegador no endereço http://localhost:3000/
     #7.1 se a porta estiver ocupada altere no index.js a constante
     const port = 3000, para outro número e acesse o local
     host nesta porta;
